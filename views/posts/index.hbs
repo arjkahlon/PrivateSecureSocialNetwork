@@ -8,16 +8,18 @@
             </div>
             <div class="card-content center-align">
                 <h5>{{title}}</h5>
+                <iframe width="315" height="315" src="https://www.youtube-nocookie.com/embed/{{{link}}}?rel=0&modestbranding=1&autohide=1&showinfo=0&loop=1" title="YouTube video player" frameborder="0"></iframe>
                 <p>{{stripTags (truncate body 150)}}</p>
                 <br>
                 <div class="chip">
                     <img src="{{user.image}}" alt="">
                     <a href="/posts/user/{{user._id}}">{{user.displayName}}</a>
                 </div>
+
             </div>
-            <div class="card-action center-align">
+            {{!-- <div class="card-action center-align">
                 <a href="/posts/{{_id}}" class="btn grey">Read More</a>
-            </div>
+            </div> --}}
         </div>
     </div>
     {{else}}
