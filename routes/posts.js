@@ -31,7 +31,7 @@ router.get('/', ensureAuth, async (req, res) => {
   try {
     const posts = await Post.find({ status: 'public' })
       .populate('user')
-      .sort({ createdAt: 'desc' })
+      .sort({ createdAt: 'asc' })
       .lean()
 
     res.render('posts/index', {
@@ -96,6 +96,7 @@ router.get('/edit/:id', ensureAuth, async (req, res) => {
 router.put('/:id', ensureAuth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.id).lean();
+    req.body.link = req.body.link.slice(17);
 
     if (!post) {
       return res.render('error/404');

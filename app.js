@@ -44,6 +44,7 @@ if (process.env.NODE_ENV === 'development') {
 // Handlebars Helpers
 const {
   formatDate,
+  timer,
   stripTags,
   truncate,
   editIcon,
@@ -56,6 +57,7 @@ app.engine(
   exphbs({
     helpers: {
       formatDate,
+      timer,
       stripTags,
       truncate,
       editIcon,

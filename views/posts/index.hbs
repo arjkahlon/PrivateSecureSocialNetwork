@@ -11,15 +11,44 @@
                 <iframe width="315" height="315" src="https://www.youtube-nocookie.com/embed/{{{link}}}?rel=0&modestbranding=1&autohide=1&showinfo=0&loop=1" title="YouTube video player" frameborder="0"></iframe>
                 <p>{{stripTags (truncate body 150)}}</p>
                 <br>
+                <p id="{{timer createdAt}}"></p>
                 <div class="chip">
                     <img src="{{user.image}}" alt="">
                     <a href="/posts/user/{{user._id}}">{{user.displayName}}</a>
                 </div>
 
             </div>
-            {{!-- <div class="card-action center-align">
-                <a href="/posts/{{_id}}" class="btn grey">Read More</a>
-            </div> --}}
+            <div class="card-action center-align">
+                <button onClick="changeColor(this)" class="btn red">Boost</button>
+            </div>
+            <script>
+              function changeColor(e) {
+                console.log(e);
+                e.className = "btn green"
+              }
+
+              setInterval(()=> {
+                var now = new Date();
+                var difference = 86400000 + ({{timer createdAt}}-now.getTime())
+                if (difference <= 0) {
+                  console.log(difference);
+                } else {
+                  
+                  var seconds = Math.floor(difference / 1000);
+                  var minutes = Math.floor(seconds / 60);
+                  var hours = Math.floor(minutes / 60);
+                  var days = Math.floor(hours / 24);
+
+                  hours %= 24;
+                  minutes %= 60;
+                  seconds %= 60;
+
+                  document.getElementById('{{{timer createdAt}}}').innerHTML = `Time Remaining: ${hours}:${minutes}:${seconds}`;
+
+                }
+
+              }, 1000);
+            </script>
         </div>
     </div>
     {{else}}

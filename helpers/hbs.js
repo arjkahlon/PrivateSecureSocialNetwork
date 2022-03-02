@@ -4,6 +4,9 @@ module.exports = {
   formatDate: function (date, format) {
     return moment(date).utc().format(format)
   },
+  timer: function(date) {
+    return moment(date)
+  },
   truncate: function (str, len) {
     if (str.length > len && str.length > 0) {
       let new_str = str + ' '
