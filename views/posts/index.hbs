@@ -19,13 +19,13 @@
 
             </div>
             <div class="card-action center-align">
-                <button onClick="changeColor(this)" class="btn red">Boost</button>
+                <p>Boost Counter: {{size boosts}}</p>
+                <form action="/posts/boost/{{_id}}" method="POST" id="boost-form">
+                  <input type="hidden" name="_method" value="PUT">
+                  <button type="submit" class="{{btnClass boosts ../user}}">BOOST</button>
+                </form>
             </div>
             <script>
-              function changeColor(e) {
-                console.log(e);
-                e.className = "btn green"
-              }
 
               setInterval(()=> {
                 var now = new Date();

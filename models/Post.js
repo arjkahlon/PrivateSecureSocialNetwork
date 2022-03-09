@@ -15,18 +15,21 @@ const PostSchema = new mongoose.Schema({
     default: 'public',
     enum: ['public', 'private'],
   },
-  link : {
+  link: {
     type: String,
-    required: true
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  boosts: {
+    type: [mongoose.Schema.Types.ObjectId],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-})
+});
 
 module.exports = mongoose.model('Post', PostSchema)

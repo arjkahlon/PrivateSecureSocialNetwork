@@ -97,6 +97,9 @@ router.put('/:id', ensureAuth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.id).lean();
     req.body.link = req.body.link.slice(17);
+    console.log(req.body);
+    console.log(post);
+    
 
     if (!post) {
       return res.render('error/404');
@@ -112,6 +115,39 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
       res.redirect('/dashboard')
     }
+  } catch (err) {
+    console.error(err)
+    return res.render('error/500')
+  }
+})
+
+// @desc    Boost post
+// @route   PUT /posts/boost/:id
+router.put('/boost/:id', ensureAuth, async (req, res) => {
+  try {
+    let post = await Post.findById(req.params.id).lean();
+
+    if (!post) {
+      return res.render('error/404');
+    }
+
+    if (!post.boosts.some(id => {
+      return JSON.stringify(id) === JSON.stringify(req.user._id)
+    })){
+      var newDateObj = new Date(post.createdAt.getTime() + 3600000);
+  
+      post.boosts.push(req.user._id);
+      
+      post = await Post.findOneAndUpdate({ _id: req.params.id }, {createdAt: newDateObj, boosts: post.boosts}, {
+        new: true,
+        runValidators: true,
+      })
+    } else {
+      console.log("USER ALREADY BOOSTED")
+    }
+
+      res.redirect('/posts')
+    
   } catch (err) {
     console.error(err)
     return res.render('error/500')

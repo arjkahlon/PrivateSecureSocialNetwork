@@ -45,6 +45,8 @@ if (process.env.NODE_ENV === 'development') {
 const {
   formatDate,
   timer,
+  size,
+  btnClass,
   stripTags,
   truncate,
   editIcon,
@@ -58,6 +60,8 @@ app.engine(
     helpers: {
       formatDate,
       timer,
+      size,
+      btnClass,
       stripTags,
       truncate,
       editIcon,

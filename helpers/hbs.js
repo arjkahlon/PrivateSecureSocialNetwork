@@ -7,6 +7,18 @@ module.exports = {
   timer: function(date) {
     return moment(date)
   },
+  size: function (boosts) {
+    return boosts.length
+  },
+  btnClass : function(boosts, user) {
+    if (boosts.some(id => {
+      return JSON.stringify(id) === JSON.stringify(user._id)
+    })) {
+      return "btn green"
+    } else {
+      return "btn red"
+    }
+  },
   truncate: function (str, len) {
     if (str.length > len && str.length > 0) {
       let new_str = str + ' '
