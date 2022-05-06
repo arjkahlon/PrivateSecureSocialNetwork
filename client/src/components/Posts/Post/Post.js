@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -19,8 +19,30 @@ import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
+  const calculateTimeLeft = () => {
+    let difference = 86400000 + moment(post.createdAt)-(new Date());
+    let timeLeft = {};
+    if (difference > 0) {
+      timeLeft = {
+        hours: Math.floor((difference)/3600000),
+        minutes: Math.floor((difference)/60000)%60,
+        seconds: Math.floor((difference)/1000)%60
+      };
+    }
+
+    return timeLeft;
+  }
+
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(post?.likes);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+  
+    return () => clearTimeout(timer);
+  });
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -56,6 +78,8 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
+    
+
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
@@ -70,6 +94,9 @@ const Post = ({ post, setCurrentId }) => {
     history.push(`/posts/${post._id}`);
   };
 
+  
+
+
   return (
     <Card className={classes.card} raised elevation={6}>
       <ButtonBase
@@ -83,7 +110,7 @@ const Post = ({ post, setCurrentId }) => {
   <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
       <Typography variant="h6">{post.name}</Typography>
   </Link>
-        <Typography variant="body2">{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/3600000)%24}:{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/60000)%60}:{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/1000)%60}</Typography>
+        <Typography variant="body2" >{timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}</Typography>
         </div>
         <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
         <CardContent>
