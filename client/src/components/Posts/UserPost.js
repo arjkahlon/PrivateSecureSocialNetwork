@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import BubbleUI from "react-bubble-ui";
+import { Container } from "@material-ui/core";
 import "react-bubble-ui/dist/index.css";
-
+import Navbar from "../Navbar/Navbar";
 import UPost from "./Post/UPost";
 import "./styles.css";
 
@@ -33,9 +34,12 @@ const UserPosts = ({ setCurrentId }) => {
   return isLoading ? (
     <></>
   ) : (
-    <BubbleUI className={"myBubbleUI"} options={options}>
-      {childPosts}
-    </BubbleUI>
+    <Container maxWidth="xl">
+      <Navbar />
+      <BubbleUI className={"myBubbleUI"} options={options}>
+        {childPosts}
+      </BubbleUI>
+    </Container>
   );
 };
 
