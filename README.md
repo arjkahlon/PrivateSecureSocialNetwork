@@ -1,12 +1,9 @@
 # ECS 193A - Senior Design Project
 
-Private Secure Social Network - Runs default on http://localhost:3000
-
-## Config Setup
-Follow the config.env.example template and create a config.env file in ./config
+HourGlass - Runs default on http://localhost:3000
 
 ## Install Dependencies
-npm install
+- run ```npm install``` in client and server directories
 
 ## Run Server
-npm run dev
+- run ```npm start``` in client and server directories
