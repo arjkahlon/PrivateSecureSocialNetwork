@@ -64,7 +64,7 @@ const Navbar = () => {
         />
         <Typography
           component={Link}
-          to="/"
+          to="/Homes"
           className={classes.heading}
           variant="h2"
           align="center"
