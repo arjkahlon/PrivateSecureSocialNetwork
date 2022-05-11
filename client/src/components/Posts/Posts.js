@@ -12,18 +12,18 @@ const Posts = ({ setCurrentId }) => {
   if (!posts.length && !isLoading) return "No posts";
 
   const options = {
-    size: 400,
-    minSize: 120,
-    gutter: 65,
+    size: 375,
+    minSize: 175,
+    gutter: 15,
     provideProps: true,
-    numCols: 3,
-    fringeWidth: 200,
-    yRadius: 140,
-    xRadius: 140,
+    numCols: 4,
+    fringeWidth: 100,
+    yRadius: 150,
+    xRadius: 150,
     cornerRadius: 200,
     showGuides: false,
     compact: true,
-    gravitation: 5,
+    gravitation: 0,
   };
 
   const childPosts = posts?.map((post, i) => {
