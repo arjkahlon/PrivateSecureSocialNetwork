@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import {
   Card,
@@ -20,8 +20,30 @@ import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
+  const calculateTimeLeft = () => {
+    let difference = 86400000 + moment(post.createdAt)-(new Date());
+    let timeLeft = {};
+    if (difference > 0) {
+      timeLeft = {
+        hours: Math.floor((difference)/3600000),
+        minutes: Math.floor((difference)/60000)%60,
+        seconds: Math.floor((difference)/1000)%60
+      };
+    }
+
+    return timeLeft;
+  }
+
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(post?.likes);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+  
+    return () => clearTimeout(timer);
+  });
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -88,6 +110,42 @@ const Post = ({ post, setCurrentId }) => {
     history.push(`/posts/${post._id}`);
   };
 
+
+  
+
+
+  return (
+    <Card className={classes.card} raised elevation={6}>
+      <ButtonBase
+        component="span"
+        name="test"
+        className={classes.cardAction}
+        onClick={openPost}
+      >
+        <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
+        <div className={classes.details}>
+  <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
+      <Typography variant="h6">{post.name}</Typography>
+  </Link>
+        <Typography variant="body2" >{timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}</Typography>
+        </div>
+        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
+        </CardContent>
+      </ButtonBase>
+      <CardActions className={classes.cardActions}>
+        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
+          <Likes />
+        </Button>
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" /> &nbsp; Delete
+          </Button>
+        )}
+      </CardActions>
+    </Card>
+
   // return (
   //   <Card className={classes.card} raised elevation={6}>
   //     <ButtonBase
@@ -125,6 +183,7 @@ const Post = ({ post, setCurrentId }) => {
     <View style={styles.screen}>
       <Image style={styles.image} source={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} />
     </View>
+
   );
 
   // return (
