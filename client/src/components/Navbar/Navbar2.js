@@ -10,7 +10,7 @@ const Navbar2 = () => {
   const classes = useStyles();
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} position="sticky" color="inherit">
       <div className={classes.brandContainer}>
         <Button
           component={Link}

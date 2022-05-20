@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
+import Footer from "../Footer/footer";
 import Navbar from "../Navbar/Navbar";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
@@ -31,6 +32,7 @@ const Home = () => {
           <Grid item xs={12} sm={6} md={9}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
+          <Footer />
         </Grid>
       </Container>
     </Grow>
