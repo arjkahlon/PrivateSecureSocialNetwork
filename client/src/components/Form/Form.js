@@ -103,23 +103,23 @@ const Form = ({ currentId, setCurrentId }) => {
         />
         <div className={classes.fileInput}>
           {
-            // <FileBase
-            //   type="file"
-            //   imagePreview="true"
-            //   multiple={false}
-            //   onDone={({ base64 }) =>
-            //     setPostData({ ...postData, selectedFile: base64 })
-            //   }
-            // />
-            <FileInputComponent
-              labelText="Select file"
-              labelStyle={{ fontSize: 14 }}
+            <FileBase
+              type="file"
+              imagePreview="true"
               multiple={false}
-              callbackFunction={(file_arr) =>
-                setPostData({ ...postData, selectedFile: file_arr })
+              onDone={({ base64 }) =>
+                setPostData({ ...postData, selectedFile: base64 })
               }
-              accept="*"
             />
+            // <FileInputComponent
+            //   labelText="Select file"
+            //   labelStyle={{ fontSize: 14 }}
+            //   multiple={false}
+            //   callbackFunction={(file_arr) =>
+            //     setPostData({ ...postData, selectedFile: file_arr })
+            //   }
+            //   accept="*"
+            // />
           }
         </div>
         <Button
