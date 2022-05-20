@@ -124,14 +124,17 @@ const Post = ({ post, setCurrentId }) => {
       >
         <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
         <div className={classes.details}>
-  <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
-      <Typography variant="h6">{post.name}</Typography>
-  </Link>
+        <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
+            <Typography variant="h6">{post.name}</Typography>
+        </Link>
         <Typography variant="body2" >{timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}</Typography>
         </div>
         <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
+        <div className={classes.details}>
+          <Typography variant="body2" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+        </div>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
+          <Typography variant="body2" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
         </CardContent>
       </ButtonBase>
       <CardActions className={classes.cardActions}>
@@ -145,77 +148,7 @@ const Post = ({ post, setCurrentId }) => {
         )}
       </CardActions>
     </Card>
-
-  // return (
-  //   <Card className={classes.card} raised elevation={6}>
-  //     <ButtonBase
-  //       component="span"
-  //       name="test"
-  //       className={classes.cardAction}
-  //       onClick={openPost}
-  //     >
-  //       <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
-  //       <div className={classes.details}>
-  // <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
-  //     <Typography variant="h6">{post.name}</Typography>
-  // </Link>
-  //       <Typography variant="body2">{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/3600000)%24}:{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/60000)%60}:{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/1000)%60}</Typography>
-  //       </div>
-  //       <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
-  //       <CardContent>
-  //         <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
-  //       </CardContent>
-  //     </ButtonBase>
-  //     <CardActions className={classes.cardActions}>
-  //       <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
-  //         <Likes />
-  //       </Button>
-  //       {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-  //         <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-  //           <DeleteIcon fontSize="small" /> &nbsp; Delete
-  //         </Button>
-  //       )}
-  //     </CardActions>
-  //   </Card>
-  // );
-
-  return (
-    <View style={styles.screen}>
-      <Image style={styles.image} source={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} />
-    </View>
-
   );
-
-  // return (
-  //   <div style={{}} className={"postBubble"} onClick={openPost}>
-  //     {true ? (
-  //       <div
-  //         style={{
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //           flexDirection: "column",
-  //           transition: "opacity 0.1s ease",
-  //           pointerEvents: "none",
-  //         }}
-  //       >
-  //         <img
-  //           src={
-  //             post.selectedFile ||
-  //             "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-  //           }
-  //           alt=""
-  //           style={{
-  //             width: 100,
-  //             height: 100,
-  //             borderRadius: `100%`,
-  //             marginBottom: 10,
-  //           }}
-  //         ></img>
-  //       </div>
-  //     ) : null}
-  //   </div>
-  // );
 };
 
 export default Post;
