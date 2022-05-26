@@ -25,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-native": "^6.3.0",
     "react-scripts": "3.4.1",
+    "react-sticky-el": "^2.0.9",
     "reactjs-popup": "^2.0.5",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

@@ -80,6 +80,11 @@ const Navbar = () => {
           >
             HourGlass
           </Typography>
+
+          <Typography variant="h2" align="center" className={classes.userName}>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+            {user?.result.name}
+          </Typography>
         </div>
 
         <Toolbar className={classes.toolbar}>
@@ -90,16 +95,15 @@ const Navbar = () => {
                 component={Link}
                 to="/User"
                 className={classes.userProfile}
+              ></Button>
+              <Button
+                variant="text"
+                className={classes.logout}
+                onClick={logout}
+                align="right"
               >
-                <Avatar
-                  className={classes.av}
-                  alt={user?.result.name}
-                  src={user?.result.imageUrl}
-                >
-                  {user?.result.name.charAt(0)}
-                </Avatar>
+                Logout
               </Button>
-
               <Button
                 component={Link}
                 to="/Home"

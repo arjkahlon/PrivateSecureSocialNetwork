@@ -4,10 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 import FileInputComponent from "react-file-input-previews-base64";
 import { useHistory } from "react-router-dom";
-
+import BubbleUI from "react-bubble-ui";
 import { createPost, updatePost } from "../../actions/posts";
 import useStyles from "./styles";
-
+const options = {
+  size: 375,
+  minSize: 175,
+  gutter: 15,
+  provideProps: true,
+  numCols: 4,
+  fringeWidth: 100,
+  yRadius: 150,
+  xRadius: 150,
+  cornerRadius: 200,
+  showGuides: false,
+  compact: true,
+  gravitation: 0,
+};
+const showPreview = ({ base64 }) => {
+  return (
+    <BubbleUI className={"myBubbleUI"} options={options}>
+      {base64}
+    </BubbleUI>
+  );
+};
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     title: "",
@@ -103,23 +123,23 @@ const Form = ({ currentId, setCurrentId }) => {
         />
         <div className={classes.fileInput}>
           {
-            // <FileBase
-            //   type="file"
-            //   imagePreview="true"
-            //   multiple={false}
-            //   onDone={({ base64 }) =>
-            //     setPostData({ ...postData, selectedFile: base64 })
-            //   }
-            // />
-            <FileInputComponent
-              labelText="Select file"
-              labelStyle={{ fontSize: 14 }}
+            <FileBase
+              type="file"
+              imagePreview="true"
               multiple={false}
-              callbackFunction={(file_arr) =>
-                setPostData({ ...postData, selectedFile: file_arr })
+              onDone={({ base64 }) =>
+                setPostData({ ...postData, selectedFile: base64 })
               }
-              accept="*"
             />
+            // <FileInputComponent
+            //   labelText="Select file"
+            //   labelStyle={{ fontSize: 14 }}
+            //   multiple={false}
+            //   callbackFunction={(file_arr) =>
+            //     setPostData({ ...postData, selectedFile: btoa(file_arr) })
+            //   }
+            //   accept="*"
+            // />
           }
         </div>
         <Button
