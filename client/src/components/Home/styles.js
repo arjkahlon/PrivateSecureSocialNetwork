@@ -6,14 +6,14 @@ export default makeStyles((theme) => ({
     marginBottom: "1rem",
     display: "flex",
     padding: "16px",
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
   },
   gridContainer: {
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column-reverse",
     },
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
   },
 }));

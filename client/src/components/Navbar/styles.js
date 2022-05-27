@@ -2,25 +2,26 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   appBar: {
-    borderRadius: 15,
-    margin: "0px 0",
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "5px 5px",
-    backgroundColor: "rgba(0,0,0,1)",
+
+    backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
+    position: "sticky",
+    zIndex: 5,
   },
   heading: {
     color: "rgb(255,255,255)",
     textDecoration: "none",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   image: {
     marginLeft: "14px",
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
     height: "100px",
   },
   toolbar: {
@@ -28,7 +29,15 @@ export default makeStyles((theme) => ({
     justifyContent: "flex-end",
     width: "400px",
     color: "rgb(255,255,255)",
+    backgroundColor: "rgba(21,32,43,0)",
+  },
+  av: {
+    color: "rgb(255,255,255)",
     backgroundColor: "rgba(0,0,0,0)",
+  },
+  popup: {
+    color: "rgb(255,255,255)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   profile: {
     display: "flex",
@@ -36,15 +45,15 @@ export default makeStyles((theme) => ({
     width: "400px",
     alignItems: "center",
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   av: {
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   logout: {
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
 
   userName: {
@@ -52,12 +61,12 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     textAlign: "center",
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   brandContainer: {
     display: "flex",
     alignItems: "center",
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
 }));

@@ -4,9 +4,9 @@ export default function CompanyBubble(props) {
   // console.log(props);
   return (
     <div
-      style={{
-        backgroundColor: props.backgroundColor + "d0",
-      }}
+      // style={{
+      //   backgroundColor: props.backgroundColor + "d0",
+      // }}
       className={"companyBubble"}
     >
       {true ? (

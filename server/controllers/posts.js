@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import moment from 'moment';
 
 import PostMessage from '../models/postMessage.js';
 
@@ -8,6 +9,17 @@ const router = express.Router();
 export const getPosts = async (req, res) => {  
     try {
         const posts = await PostMessage.find().sort({ _id: -1 });
+
+        for (const post of posts) {
+            if (-(moment(post.createdAt) - (new Date()).getTime()) > 86400000) {
+                await PostMessage.findByIdAndRemove(post._id);
+                var index = posts.indexOf(post);
+                if (index !== -1) {
+                    posts.splice(post, 1);
+                }
+            }
+        }
+
 
         res.json({ data: posts });
     } catch (error) {    
@@ -22,6 +34,15 @@ export const getPostsBySearch = async (req, res) => {
         const title = new RegExp(searchQuery, "i");
 
         const posts = await PostMessage.find({ $or: [ { title } ]});
+        for (const post of posts) {
+            if (-(moment(post.createdAt) - (new Date()).getTime()) > 86400000) {
+                await PostMessage.findByIdAndRemove(post._id);
+                var index = posts.indexOf(post);
+                if (index !== -1) {
+                    posts.splice(post, 1);
+                }
+            }
+        }
 
         res.json({ data: posts });
     } catch (error) {    
@@ -34,6 +55,15 @@ export const getPostsByCreator = async (req, res) => {
 
     try {
         const posts = await PostMessage.find({ name });
+        for (const post of posts) {
+            if (-(moment(post.createdAt) - (new Date()).getTime()) > 86400000) {
+                await PostMessage.findByIdAndRemove(post._id);
+                var index = posts.indexOf(post);
+                if (index !== -1) {
+                    posts.splice(post, 1);
+                }
+            }
+        }
 
         res.json({ data: posts });
     } catch (error) {    
@@ -46,6 +76,10 @@ export const getPost = async (req, res) => {
 
     try {
         const post = await PostMessage.findById(id);
+        if (-(moment(post.createdAt) - (new Date()).getTime()) > 86400000) {
+            await PostMessage.findByIdAndRemove(post._id);
+            res.status(404).json({ message: error.message });
+        }
         
         res.status(200).json(post);
     } catch (error) {
@@ -69,11 +103,11 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     const { id } = req.params;
-    const { title, message, creator, selectedFile } = req.body;
+    const { title, message, creator, selectedFile, tags } = req.body;
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = { creator, title, message, selectedFile, _id: id };
+    const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
     await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
@@ -105,8 +139,10 @@ export const likePost = async (req, res) => {
 
     if (index === -1) {
       post.likes.push(req.userId);
+      post.createdAt = moment(post.createdAt).add(30, 'm').toDate();
     } else {
       post.likes = post.likes.filter((id) => id !== String(req.userId));
+      post.createdAt = moment(post.createdAt).subtract(30, 'm').toDate();
     }
 
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
@@ -121,6 +157,7 @@ export const commentPost = async (req, res) => {
     const post = await PostMessage.findById(id);
 
     post.comments.push(value);
+    post.createdAt = moment(post.createdAt).add(60, 'm').toDate();
 
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
 

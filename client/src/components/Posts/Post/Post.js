@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { View, StyleSheet, Image } from "react-native";
 import {
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Button,
+  Paper,
+  Divider,
   Typography,
   ButtonBase,
 } from "@material-ui/core/";
@@ -14,6 +17,10 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
+import Popup from "reactjs-popup";
+import PostDetails from "../../PostDetails/PostDetails";
+import CommentSection from "../../PostDetails/CommentSection";
+import "./styles.css";
 
 import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
@@ -35,6 +42,48 @@ const Post = ({ post, setCurrentId }) => {
       setLikes(post.likes.filter((id) => id !== userId));
     } else {
       setLikes([...post.likes, userId]);
+    }
+  };
+
+  const styles = StyleSheet.create({
+    screen: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    // styling the image
+    image: {
+      width: 300,
+      height: 300,
+      borderRadius: 1000,
+    },
+  });
+
+  const borderStyle = (value) => {
+    if (value > 24) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#00FF00",
+      };
+    } else if (value < 1) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FF0000",
+      };
+    } else {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FFFF00",
+      };
     }
   };
 
@@ -70,69 +119,106 @@ const Post = ({ post, setCurrentId }) => {
     history.push(`/posts/${post._id}`);
   };
 
-  return (
-    <Card className={classes.card} raised elevation={6}>
-      <ButtonBase
-        component="span"
-        name="test"
-        className={classes.cardAction}
-        onClick={openPost}
-      >
-        <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
-        <div className={classes.details}>
-  <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
-      <Typography variant="h6">{post.name}</Typography>
-  </Link>
-        <Typography variant="body2">{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/3600000)%24}:{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/60000)%60}:{Math.floor((86400000 + moment(post.createdAt)-(new Date()).getTime())/1000)%60}</Typography>
-        </div>
-        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
-        </CardContent>
-      </ButtonBase>
-      <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
-          <Likes />
-        </Button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
-          </Button>
-        )}
-      </CardActions>
-    </Card>
+  const Modal = () => (
+    <Popup trigger={<button className="button"> </button>} modal>
+      <span> Modal content </span>
+    </Popup>
   );
 
-  // return (
-  //   <div style={{}} className={"postBubble"} onClick={openPost}>
-  //     {true ? (
-  //       <div
-  //         style={{
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //           flexDirection: "column",
-  //           transition: "opacity 0.1s ease",
-  //           pointerEvents: "none",
-  //         }}
-  //       >
-  //         <img
-  //           src={
-  //             post.selectedFile ||
-  //             "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-  //           }
-  //           alt=""
-  //           style={{
-  //             width: 100,
-  //             height: 100,
-  //             borderRadius: `100%`,
-  //             marginBottom: 10,
-  //           }}
-  //         ></img>
-  //       </div>
-  //     ) : null}
-  //   </div>
-  // );
+  return (
+    <Popup
+      trigger={
+        <Button className="post">
+          <Image
+            style={borderStyle(
+              (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                3600000
+            )}
+            source={
+              post.selectedFile ||
+              "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+            }
+          />
+        </Button>
+      }
+      position="right center"
+      Modal
+      className={classes.popup}
+    >
+      <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
+        <div className={classes.card}>
+          <div className={classes.section}>
+            <Typography variant="h3" color="primary" component="h2">
+              {post.title}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body1"
+              color="primary"
+              component="p"
+            >
+              {post.message}
+            </Typography>
+            <Typography variant="h6" color="primary">
+              Created by:
+              <Link
+                to={`/creators/${post.name}`}
+                style={{ textDecoration: "none", color: "#3f51b5" }}
+              >
+                {` ${post.name}`}
+              </Link>
+            </Typography>
+            <Typography color="primary" variant="body2">
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  3600000
+              )}
+              :
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  60000
+              ) % 60}
+              :
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  1000
+              ) % 60}
+            </Typography>
+            <Divider style={{ margin: "20px 0" }} />
+            <CommentSection post={post} />
+            <Divider style={{ margin: "20px 0" }} />
+          </div>
+          <Button
+            size="small"
+            color="primary"
+            disabled={!user?.result}
+            onClick={handleLike}
+          >
+            <Likes />
+          </Button>
+          <div className={classes.imageSection}>
+            <img
+              className={classes.media}
+              src={
+                post.selectedFile ||
+                "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+              }
+              alt={post.title}
+            />
+          </div>
+        </div>
+      </Paper>
+    </Popup>
+    // <View style={styles.screen}>
+    //   <Image
+    //     style={styles.image}
+    //     source={
+    //       post.selectedFile ||
+    //       "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+    //     }
+    //   />
+    // </View>
+  );
 };
 
 export default Post;
