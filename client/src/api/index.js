@@ -20,5 +20,6 @@ export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { val
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-export const signIn = (formData) => API.post('/user/signin', formData);
-export const signUp = (formData) => API.post('/user/signup', formData);
+export const login = (result) => API.post('/users/login', result);
+export const follow = (id) => API.post('/users/follow', id);
+export const fetchUser = (id) => API.get(`/users/${id}`);

@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Paper,
   Typography,
   CircularProgress,
   Divider,
+  Button
 } from "@material-ui/core/";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -14,11 +15,15 @@ import { getPost, getPostsBySearch } from "../../actions/posts";
 import CommentSection from "./CommentSection";
 import useStyles from "./styles";
 import Navbar from "../Navbar/Navbar";
+import { followUser, getUser } from "../../actions/users";
 const Post = () => {
+  const user = JSON.parse(localStorage.getItem('profile'));
+  
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const classes = useStyles();
   const { id } = useParams();
+
 
   useEffect(() => {
     dispatch(getPost(id));
@@ -39,6 +44,19 @@ const Post = () => {
       </Paper>
     );
   }
+
+  const userId = user?.result.googleId || user?.result?._id;
+  const handleFollow = async () => {
+    console.log(post.creator)
+    dispatch(followUser(post.creator));
+
+
+    // if (followers.find((follower) => follower === userId)) {
+    //   setFollowers(user?.followers.filter((id) => id !== userId));
+    // } else {
+    //   setFollowers([...user?.followers, userId]);
+    // }
+  };
 
   return (
     <Container maxWidth="xl">
@@ -64,6 +82,9 @@ const Post = () => {
                 {` ${post.name}`}
               </Link>
             </Typography>
+            <Button style={{ marginTop: '10px' }} color="primary" variant="contained" onClick={handleFollow}>
+              FOLLOW
+            </Button>
             <Typography variant="body2">
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /

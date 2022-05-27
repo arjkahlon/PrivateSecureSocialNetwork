@@ -89,8 +89,10 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
     const post = req.body;
+    console.log(post)
+    console.log(req.userId)
 
-    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    const newPostMessage = new PostMessage({ ...post, creator: String(req.userId), createdAt: new Date().toISOString() })
 
     try {
         await newPostMessage.save();
@@ -128,19 +130,21 @@ export const likePost = async (req, res) => {
     const { id } = req.params;
 
     if (!req.userId) {
-        return res.json({ message: "Unauthenticated" });
-      }
+      return res.json({ message: "Unauthenticated" });
+    }
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-    
+
     const post = await PostMessage.findById(id);
 
-    const index = post.likes.findIndex((id) => id ===String(req.userId));
+    const index = post.likes.findIndex((id) => id === String(req.userId));
 
     if (index === -1) {
+      console.log("liked")
       post.likes.push(req.userId);
       post.createdAt = moment(post.createdAt).add(30, 'm').toDate();
     } else {
+      console.log("unliked")
       post.likes = post.likes.filter((id) => id !== String(req.userId));
       post.createdAt = moment(post.createdAt).subtract(30, 'm').toDate();
     }

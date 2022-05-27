@@ -1,48 +1,62 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-
 import UserModal from "../models/user.js";
+import mongoose from 'mongoose';
 
-const secret = 'test';
+const secret = 'test'
 
-export const signin = async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const oldUser = await UserModal.findOne({ email });
-
-    if (!oldUser) return res.status(404).json({ message: "User doesn't exist" });
-
-    const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
-
-    if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
-
-    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
-
-    res.status(200).json({ result: oldUser, token });
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
-  }
-};
-
-export const signup = async (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
+export const login = async (req, res) => {
+  const { email, googleId, imageUrl, name } = req.body;
 
   try {
     const oldUser = await UserModal.findOne({ email });
 
-    if (oldUser) return res.status(400).json({ message: "User already exists" });
+    if (oldUser) return res.status(200).json({ result: oldUser });
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const result = await UserModal.create({ email, googleId, imageUrl, name });
 
-    const result = await UserModal.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
-
-    const token = jwt.sign( { email: result.email, id: result._id }, secret, { expiresIn: "1h" } );
-
-    res.status(201).json({ result, token });
+    res.status(201).json({ result });
+    
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
-    
     console.log(error);
   }
 };
+
+export const followUser = async (req, res) => {
+  const id = req.body.id;
+  console.log(id)
+
+
+  if (!req.userId) {
+    return res.json({ message: "Unauthenticated" });
+  }
+
+  if (!UserModal.findOne({googleId: req.userId})) return res.status(404).send(`No user with id: ${id}`);
+  
+  const user = await UserModal.findOne({googleId: id});
+  console.log(user)
+  console.log(id)
+
+  const index = user.followers.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    user.followers.push(req.userId);
+  } else {
+    user.followers = user.followers.filter((id) => id !== String(req.userId));
+  }
+
+  const updatedUser = await UserModal.findOneAndUpdate({googleId: id}, user, { new: true });
+
+  res.status(200).json(updatedUser);
+}
+
+export const getUser = async (req, res) => { 
+  const id = req.params.id;
+
+  try {
+      const user = await UserModal.findOne({id: id});
+      
+      res.status(200).json(user);
+  } catch (error) {
+      res.status(404).json({ message: error.message });
+  }
+}
