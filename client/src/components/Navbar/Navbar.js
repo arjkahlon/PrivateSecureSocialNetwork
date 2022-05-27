@@ -3,6 +3,8 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
+import Popup from "reactjs-popup";
+//import "reactjs-popup/dist/index.css";
 
 import { GoogleLogin } from "react-google-login";
 import { AUTH } from "../../constants/actionTypes";
@@ -17,6 +19,7 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
 
@@ -54,7 +57,7 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} position="sticky" color="inherit">
       <div className={classes.brandContainer}>
         <img
           className={classes.image}
@@ -76,20 +79,40 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
-            <Button
-              component={Link}
-              to="/User"
-              variant="contained"
-              className={classes.logout}
+            <Popup
+              trigger={
+                <Button variant="contained" className={classes.logout}>
+                  <Avatar
+                    className={classes.av}
+                    alt={user?.result.name}
+                    src={user?.result.imageUrl}
+                  >
+                    {user?.result.name.charAt(0)}
+                  </Avatar>
+                </Button>
+              }
+              position="right center"
+              className={classes.popup}
             >
-              <Avatar
-                className={classes.av}
-                alt={user?.result.name}
-                src={user?.result.imageUrl}
-              >
-                {user?.result.name.charAt(0)}
-              </Avatar>
-            </Button>
+              <div className={classes.popup}>
+                <Button
+                  component={Link}
+                  to="/User"
+                  variant="contained"
+                  className={classes.logout}
+                >
+                  User Profile
+                </Button>
+                <Button
+                  variant="contained"
+                  className={classes.logout}
+                  onClick={logout}
+                  align="right"
+                >
+                  Logout
+                </Button>
+              </div>
+            </Popup>
             <Button
               component={Link}
               to="/Home"
@@ -97,14 +120,6 @@ const Navbar = () => {
               className={classes.logout}
             >
               +
-            </Button>
-            <Button
-              variant="contained"
-              className={classes.logout}
-              onClick={logout}
-              align="right"
-            >
-              Logout
             </Button>
           </div>
         ) : (

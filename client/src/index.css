@@ -1,9 +1,9 @@
 body {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(21, 32, 43, 1);
   color: antiquewhite;
 }
 
 * {
   /* font-family: 'Noto Sans JP' !important; */
-  font-family: "Heebo", sans-serif !important;
+  font-family: "Heebo", serif !important;
 }

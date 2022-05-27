@@ -14,6 +14,7 @@ import { getPost, getPostsBySearch } from "../../actions/posts";
 import CommentSection from "./CommentSection";
 import useStyles from "./styles";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/footer";
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -96,6 +97,7 @@ const Post = () => {
           </div>
         </div>
       </Paper>
+      <Footer />
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import {
   Card,
@@ -6,6 +6,8 @@ import {
   CardContent,
   CardMedia,
   Button,
+  Paper,
+  Divider,
   Typography,
   ButtonBase,
 } from "@material-ui/core/";
@@ -15,35 +17,17 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
+import Popup from "reactjs-popup";
+import PostDetails from "../../PostDetails/PostDetails";
+import CommentSection from "../../PostDetails/CommentSection";
+import "./styles.css";
 
 import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
-  const calculateTimeLeft = () => {
-    let difference = 86400000 + moment(post.createdAt)-(new Date());
-    let timeLeft = {};
-    if (difference > 0) {
-      timeLeft = {
-        hours: Math.floor((difference)/3600000),
-        minutes: Math.floor((difference)/60000)%60,
-        seconds: Math.floor((difference)/1000)%60
-      };
-    }
-
-    return timeLeft;
-  }
-
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(post?.likes);
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-  
-    return () => clearTimeout(timer);
-  });
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -75,6 +59,34 @@ const Post = ({ post, setCurrentId }) => {
     },
   });
 
+  const borderStyle = (value) => {
+    if (value > 24) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#00FF00",
+      };
+    } else if (value < 1) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FF0000",
+      };
+    } else {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FFFF00",
+      };
+    }
+  };
+
   const Likes = () => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId) ? (
@@ -93,15 +105,12 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
-    
-
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
         &nbsp;Like
       </>
     );
-    
   };
 
   const openPost = (e) => {
@@ -110,44 +119,105 @@ const Post = ({ post, setCurrentId }) => {
     history.push(`/posts/${post._id}`);
   };
 
-
-  
-
+  const Modal = () => (
+    <Popup trigger={<button className="button"> </button>} modal>
+      <span> Modal content </span>
+    </Popup>
+  );
 
   return (
-    <Card className={classes.card} raised elevation={6}>
-      <ButtonBase
-        component="span"
-        name="test"
-        className={classes.cardAction}
-        onClick={openPost}
-      >
-        <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
-        <div className={classes.details}>
-        <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#000' }}>
-            <Typography variant="h6">{post.name}</Typography>
-        </Link>
-        <Typography variant="body2" >{timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}</Typography>
-        </div>
-        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
-        <div className={classes.details}>
-          <Typography variant="body2" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-        </div>
-        <CardContent>
-          <Typography variant="body2" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
-        </CardContent>
-      </ButtonBase>
-      <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
-          <Likes />
+    <Popup
+      trigger={
+        <Button className="post">
+          <Image
+            style={borderStyle(
+              (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                3600000
+            )}
+            source={
+              post.selectedFile ||
+              "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+            }
+          />
         </Button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
+      }
+      position="right center"
+      Modal
+      className={classes.popup}
+    >
+      <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
+        <div className={classes.card}>
+          <div className={classes.section}>
+            <Typography variant="h3" color="primary" component="h2">
+              {post.title}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body1"
+              color="primary"
+              component="p"
+            >
+              {post.message}
+            </Typography>
+            <Typography variant="h6" color="primary">
+              Created by:
+              <Link
+                to={`/creators/${post.name}`}
+                style={{ textDecoration: "none", color: "#3f51b5" }}
+              >
+                {` ${post.name}`}
+              </Link>
+            </Typography>
+            <Typography color="primary" variant="body2">
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  3600000
+              )}
+              :
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  60000
+              ) % 60}
+              :
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  1000
+              ) % 60}
+            </Typography>
+            <Divider style={{ margin: "20px 0" }} />
+            <CommentSection post={post} />
+            <Divider style={{ margin: "20px 0" }} />
+          </div>
+          <Button
+            size="small"
+            color="primary"
+            disabled={!user?.result}
+            onClick={handleLike}
+          >
+            <Likes />
           </Button>
-        )}
-      </CardActions>
-    </Card>
+          <div className={classes.imageSection}>
+            <img
+              className={classes.media}
+              src={
+                post.selectedFile ||
+                "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+              }
+              alt={post.title}
+            />
+          </div>
+        </div>
+      </Paper>
+    </Popup>
+    // <View style={styles.screen}>
+    //   <Image
+    //     style={styles.image}
+    //     source={
+    //       post.selectedFile ||
+    //       "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+    //     }
+    //   />
+    // </View>
   );
 };
 

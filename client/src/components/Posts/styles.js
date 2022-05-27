@@ -10,11 +10,11 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: "10px 50px",
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
   },
   heading: {
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
     textDecoration: "none",
   },
@@ -34,8 +34,7 @@ export default makeStyles((theme) => ({
   userName: {
     display: "flex",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,1)",
-    color: "rgb(255,255,255)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   brandContainer: {
     display: "flex",
