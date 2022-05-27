@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2),
     backgroundColor: "rgb(248,240,227)",
     color: "rgb(0,0,0)",
-    marginTop: "5%",
+    marginTop: "10%",
   },
   form: {
     display: "flex",

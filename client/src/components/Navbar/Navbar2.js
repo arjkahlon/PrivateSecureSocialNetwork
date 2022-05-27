@@ -57,25 +57,32 @@ const Navbar2 = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="sticky" color="inherit">
-      <div className={classes.brandContainer}>
-        <img
-          className={classes.image}
-          src={hourglass}
-          alt="icon"
-          height="100"
-        />
-        <Typography
-          component={Link}
-          to="/Homes"
-          className={classes.heading}
-          variant="h2"
-          align="center"
-        >
-          HourGlass
-        </Typography>
-      </div>
-    </AppBar>
+    <React.Fragment>
+      <AppBar
+        className={classes.appBar}
+        color="inherit"
+        sx={{ width: 1 }}
+        style={{ minWidth: "100%" }}
+      >
+        <div className={classes.brandContainer}>
+          <img
+            className={classes.image}
+            src={hourglass}
+            alt="icon"
+            height="100"
+          />
+          <Typography
+            component={Link}
+            to="/Homes"
+            className={classes.heading}
+            variant="h2"
+            align="center"
+          >
+            HourGlass
+          </Typography>
+        </div>
+      </AppBar>
+    </React.Fragment>
   );
 };
 
