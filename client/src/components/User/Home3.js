@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-
+import UserNavbar from "../Navbar/UserNavbar";
 import { getPosts } from "../../actions/posts";
 import UserPosts from "../Posts/UserPost";
-//import Form from "../Form/Form";
+import Footer from "../Footer/footer";
 
 const Home3 = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -16,10 +16,12 @@ const Home3 = () => {
 
   return (
     <Grow in>
-      <Container>
+      <Container maxWidth="xl">
+        <UserNavbar />
         <Grid
           container
-          justify="space-between"
+          direction="row"
+          justify="space-around"
           alignItems="stretch"
           spacing={4}
         >
@@ -27,6 +29,7 @@ const Home3 = () => {
             <UserPosts setCurrentId={setCurrentId} />
           </Grid>
         </Grid>
+        <Footer />
       </Container>
     </Grow>
   );
