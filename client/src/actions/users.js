@@ -1,10 +1,14 @@
 import * as api from '../api/index.js';
-import { FOLLOW, FETCH_USER } from '../constants/actionTypes';
+import { FOLLOW, FETCH_USER, AUTH } from '../constants/actionTypes';
 
 
-export const storeUser = (result, router) => async (dispatch) => {
+export const storeUser = (res, router) => async (dispatch) => {
   try {
-    const { data } = await api.login(result);
+    const { data } = await api.login(res?.profileObj);
+    console.log(data)
+    const result = data?.result
+    const token = res?.tokenId;
+    dispatch({ type: AUTH, data: { result, token } });
 
     router.push('/Homes');
   } catch (error) {

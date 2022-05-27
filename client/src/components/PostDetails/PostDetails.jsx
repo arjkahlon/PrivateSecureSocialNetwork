@@ -10,15 +10,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useParams, Link } from "react-router-dom";
-
 import { getPost, getPostsBySearch } from "../../actions/posts";
 import CommentSection from "./CommentSection";
 import useStyles from "./styles";
 import Navbar from "../Navbar/Navbar";
-import { followUser, getUser } from "../../actions/users";
+import { followUser} from "../../actions/users";
 const Post = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
-  
+  const [followers, setFollowers] = useState(user?.result?.followers);
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -46,17 +45,25 @@ const Post = () => {
   }
 
   const userId = user?.result.googleId || user?.result?._id;
+  const hasFollowedUser = followers.find((follower) => follower === post.creator);
+
   const handleFollow = async () => {
-    console.log(post.creator)
     dispatch(followUser(post.creator));
 
-
-    // if (followers.find((follower) => follower === userId)) {
-    //   setFollowers(user?.followers.filter((id) => id !== userId));
-    // } else {
-    //   setFollowers([...user?.followers, userId]);
-    // }
+    if (hasFollowedUser) {
+      setFollowers(followers.filter((id) => id !== post.creator));
+    } else {
+      setFollowers([...followers, post.creator]);
+    }
   };
+
+  const Follows = () => {
+    return followers.find((follower) => follower === post.creator) ? (
+      <>Following</>
+    ) : (
+      <>Follow</>
+    );
+  }
 
   return (
     <Container maxWidth="xl">
@@ -83,7 +90,7 @@ const Post = () => {
               </Link>
             </Typography>
             <Button style={{ marginTop: '10px' }} color="primary" variant="contained" onClick={handleFollow}>
-              FOLLOW
+              <Follows />
             </Button>
             <Typography variant="body2">
               {Math.floor(

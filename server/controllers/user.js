@@ -23,7 +23,6 @@ export const login = async (req, res) => {
 
 export const followUser = async (req, res) => {
   const id = req.body.id;
-  console.log(id)
 
 
   if (!req.userId) {
@@ -33,15 +32,15 @@ export const followUser = async (req, res) => {
   if (!UserModal.findOne({googleId: req.userId})) return res.status(404).send(`No user with id: ${id}`);
   
   const user = await UserModal.findOne({googleId: id});
-  console.log(user)
-  console.log(id)
 
   const index = user.followers.findIndex((id) => id === String(req.userId));
 
   if (index === -1) {
     user.followers.push(req.userId);
+    console.log("Followed")
   } else {
     user.followers = user.followers.filter((id) => id !== String(req.userId));
+    console.log("Unfollowed")
   }
 
   const updatedUser = await UserModal.findOneAndUpdate({googleId: id}, user, { new: true });
