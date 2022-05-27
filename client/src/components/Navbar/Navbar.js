@@ -76,6 +76,24 @@ const Navbar = () => {
         </Typography>
       </div>
 
+      <div>
+        {/* <ButtonToggleGroup
+          highlightBackgroundColor={'blue'}
+          highlightTextColor={'white'}
+          inactiveBackgroundColor={'transparent'}
+          inactiveTextColor={'grey'}
+          values={['All', 'Following']}
+          value={value}
+          onSelect={val => setValue(val)}
+        /> */}
+        <Button 
+          onClick={toggle} 
+          className={classes.popup}
+        >
+          {state ? 'Following' :'Home'}
+        </Button>
+      </div>
+
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
