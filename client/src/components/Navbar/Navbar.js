@@ -3,6 +3,8 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
+import Popup from "reactjs-popup";
+//import "reactjs-popup/dist/index.css";
 
 //import "reactjs-popup/dist/index.css";
 
@@ -19,6 +21,11 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [state, setState] = React.useState(false);
+
+  const toggle = () => {
+    setState(!state);
+  };
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -80,6 +87,12 @@ const Navbar = () => {
           >
             HourGlass
           </Typography>
+          <Button 
+          onClick={toggle} 
+          className={classes.popup}
+        >
+          {state ? 'Following' :'Home'}
+        </Button>
         </div>
 
         <Toolbar className={classes.toolbar}>

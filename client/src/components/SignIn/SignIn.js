@@ -83,7 +83,7 @@ const SignIN = () => {
                 and can like and comment other people's images. Images stay on
                 the website for <b>24 hours</b>. Each like adds{" "}
                 <b>30 minutes</b> to the image's life and each comment adds{" "}
-                <b>24 hours</b>.
+                <b>1 hour</b>.
               </p>
               <p>
                 {" "}

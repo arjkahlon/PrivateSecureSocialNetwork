@@ -12,10 +12,25 @@ const Home = () => {
 
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
+  const followingPage = false;
 
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
+
+  // const loggedInUser = getUser(user?.email);
+
+  const handleFollowingPage = () => {
+    if (followingPage)
+    {
+      followingPage = false;
+    }
+    else
+    {
+      followingPage = true;
+    }
+    return followingPage;
+  };
 
   return (
     <Grow in>
@@ -30,7 +45,10 @@ const Home = () => {
           className={classes.gridContainer}
         >
           <Grid item xs={12} sm={6} md={9}>
-            <Posts setCurrentId={setCurrentId} />
+            {/* if (!handleFollowingPage)
+            { */}
+              <Posts setCurrentId={setCurrentId} />
+            {/* } */}
           </Grid>
           <Footer />
         </Grid>

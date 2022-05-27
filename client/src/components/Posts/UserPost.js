@@ -6,6 +6,7 @@ import "react-bubble-ui/dist/index.css";
 import Footer from "../Footer/footer";
 import UserNavbar from "../Navbar/UserNavbar";
 
+import Navbar from "../Navbar/Navbar";
 import UPost from "./Post/UPost";
 import "./styles.css";
 
