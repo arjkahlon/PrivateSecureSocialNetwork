@@ -19,6 +19,11 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [state, setState] = React.useState(false);
+
+  const toggle = () => {
+    setState(!state);
+  };
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
