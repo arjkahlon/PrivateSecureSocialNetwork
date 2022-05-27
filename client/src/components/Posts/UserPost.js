@@ -3,6 +3,12 @@ import { useSelector } from "react-redux";
 import BubbleUI from "react-bubble-ui";
 import { Container } from "@material-ui/core";
 import "react-bubble-ui/dist/index.css";
+<<<<<<< HEAD
+=======
+import Footer from "../Footer/footer";
+import UserNavbar from "../Navbar/UserNavbar";
+
+>>>>>>> dev
 import Navbar from "../Navbar/Navbar";
 import UPost from "./Post/UPost";
 import "./styles.css";
@@ -32,10 +38,12 @@ const UserPosts = ({ setCurrentId }) => {
   });
 
   return isLoading ? (
-    <></>
+    <>
+      <UserNavbar />
+      <Footer />
+    </>
   ) : (
     <Container maxWidth="xl">
-      <Navbar />
       <BubbleUI className={"myBubbleUI"} options={options}>
         {childPosts}
       </BubbleUI>

@@ -1,66 +1,43 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
-  appBar: {
-    borderRadius: 15,
-    margin: "0px 0",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "5px 5px",
-    backgroundColor: "rgba(0,0,0,1)",
-    color: "rgb(255,255,255)",
+  root: {
+    "& .MuiContainer-root": {
+      width: "100%",
+    },
   },
-  heading: {
-    color: "rgb(255,255,255)",
-    textDecoration: "none",
-    backgroundColor: "rgba(0,0,0,0)",
-  },
-  image: {
-    marginLeft: "20%",
-    marginRight: "20%",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
-    height: "400px",
-
-    alignItems: "center",
+  aboutUs: {
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+    width: "53%",
+    height: "100%",
+    paddingLeft: "10%",
+    paddingRight: "10%",
     justifyContent: "center",
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "flex-end",
-    width: "400px",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
-  },
-  profile: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "400px",
+    verticalAlign: "center",
     alignItems: "center",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    marginTop: "7%",
+    fontSize: "35px",
   },
-  av: {
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
-  },
+
   logout: {
-    color: "rgb(255,255,255)",
     paddingLeft: "10%",
     paddingRight: "10%",
     justifyContent: "center",
     alignItems: "center",
-    width: "72.7%",
+    width: "73%",
     height: "20%",
     verticalAlign: "center",
     fontSize: "20px",
+    color: "rgb(255,255,255)",
+    backgroundColor: "rgb(50,131,252)",
   },
+
   googleButton: {
     paddingLeft: "10%",
     paddingRight: "10%",
-
+    color: "rgb(255,255,255)",
+    backgroundColor: "rgb(50,131,252)",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
@@ -69,17 +46,8 @@ export default makeStyles(() => ({
     fontSize: "20px",
   },
 
-  userName: {
-    display: "flex",
-    alignItems: "center",
-    textAlign: "center",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
-  },
   brandContainer: {
     display: "flex",
     alignItems: "center",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,1)",
   },
 }));
