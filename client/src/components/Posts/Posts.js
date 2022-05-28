@@ -14,7 +14,7 @@ const Posts = ({ setCurrentId }) => {
   const options = {
     size: 375,
     minSize: 175,
-    gutter: 15,
+    gutter: 30,
     provideProps: true,
     numCols: 4,
     fringeWidth: 100,

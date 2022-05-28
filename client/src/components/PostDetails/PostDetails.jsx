@@ -66,7 +66,7 @@ const Post = () => {
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
                   3600000
-              ) % 24}
+              )}
               :
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /

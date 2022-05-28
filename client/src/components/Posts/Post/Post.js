@@ -10,20 +10,33 @@ import {
   Divider,
   Typography,
   ButtonBase,
+  Avatar,
+  CardHeader,
 } from "@material-ui/core/";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
+import CommentIcon from '@material-ui/icons/Comment';
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
+import ReadCommentSection from "../../../components/PostDetails/ReadComments";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import "./styles.css";
 
 import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
+
+const cardStyle = {
+  display: 'block',
+  width: '30vw',
+  transitionDuration: '0.3s',
+  height: '45vw'
+}
 
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -68,7 +81,7 @@ const Post = ({ post, setCurrentId }) => {
         borderWidth: 10,
         borderColor: "#00FF00",
       };
-    } else if (value < 1) {
+    } else if (value < 4) {
       return {
         width: 300,
         height: 300,
@@ -86,6 +99,7 @@ const Post = ({ post, setCurrentId }) => {
       };
     }
   };
+  
 
   const Likes = () => {
     if (likes.length > 0) {
@@ -95,12 +109,12 @@ const Post = ({ post, setCurrentId }) => {
           &nbsp;
           {likes.length > 2
             ? `You and ${likes.length - 1} others`
-            : `${likes.length} like${likes.length > 1 ? "s" : ""}`}
+            : `${likes.length} like${likes.length > 1 ? "s" : ""}`} &nbsp; &nbsp;
         </>
       ) : (
         <>
           <ThumbUpAltOutlined fontSize="small" />
-          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
+          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"} &nbsp; &nbsp;
         </>
       );
     }
@@ -108,7 +122,7 @@ const Post = ({ post, setCurrentId }) => {
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
-        &nbsp;Like
+        &nbsp;Like &nbsp; &nbsp;
       </>
     );
   };
@@ -126,50 +140,11 @@ const Post = ({ post, setCurrentId }) => {
   );
 
   return (
+
     <Popup
       trigger={
-        <Button className="post">
-          <Image
-            style={borderStyle(
-              (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                3600000
-            )}
-            source={
-              post.selectedFile ||
-              "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-            }
-          />
-        </Button>
-      }
-      position="right center"
-      Modal
-      className={classes.popup}
-    >
-      <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
-        <div className={classes.card}>
-          <div className={classes.section}>
-            <Typography variant="h3" color="primary" component="h2">
-              {post.title}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="body1"
-              color="primary"
-              component="p"
-            >
-              {post.message}
-            </Typography>
-            <Typography variant="h6" color="primary">
-              Created by:
-              <Link
-                to={`/creators/${post.name}`}
-                style={{ textDecoration: "none", color: "#3f51b5" }}
-              >
-                {` ${post.name}`}
-              </Link>
-            </Typography>
-            <Typography color="primary" variant="body2">
-              {Math.floor(
+        <figure class= "figure"> 
+        <figcaption  align= "center" color = "primary"> <h1><b>{Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
                   3600000
               )}
@@ -182,12 +157,21 @@ const Post = ({ post, setCurrentId }) => {
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
                   1000
-              ) % 60}
-            </Typography>
-            <Divider style={{ margin: "20px 0" }} />
-            <CommentSection post={post} />
-            <Divider style={{ margin: "20px 0" }} />
-          </div>
+          ) % 60} </b> </h1></figcaption>
+        <Button className="post">
+        
+          <div class="container">
+            <Image
+              style={borderStyle(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  3600000
+              )}
+              source={
+                post.selectedFile ||
+                "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+              }
+            />
+          {/*Liking on the Bubble UI*/}
           <Button
             size="small"
             color="primary"
@@ -196,19 +180,113 @@ const Post = ({ post, setCurrentId }) => {
           >
             <Likes />
           </Button>
-          <div className={classes.imageSection}>
-            <img
-              className={classes.media}
-              src={
-                post.selectedFile ||
-                "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-              }
-              alt={post.title}
-            />
+
+          {/*Commenting on the Bubble UI*/}
+          {(user?.result) && (
+          <Button size="small" color = "primary" onClick={openPost}>
+            <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
+          </Button>
+          )}
+
+          {/*Delete on the Bubble UI*/}
+          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" /> &nbsp; Delete
+          </Button>
+          )}
           </div>
+        </Button>
+      </figure>
+      }
+
+      position="right center"
+      Modal
+      className={classes.popup}
+    >
+      <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
+        <div className={classes.card}>
+          <div className={classes.section}>
+            <CardHeader
+              avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
+              title={post.name}
+              titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
+              className={classes.cardHeader}
+            />
+            <Typography color="secondary" variant="h6" align='center'>
+              {/* <b>Post Dies in: &nbsp;</b> */}
+              <b>{Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  3600000
+              )}
+              :
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  60000
+              ) % 60}
+              :
+              {Math.floor(
+                (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                  1000
+              ) % 60} </b>
+            </Typography>
+            <Typography variant="h1" color="primary" component="h1" align='center'>
+              {post.title}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body1"
+              color="primary"
+              component="p"
+              align = "center"
+            >
+              {post.message}
+            </Typography>
+
+            <Typography
+              gutterBottom
+              variant="h1"
+              color="primary"
+              component="p"
+            >
+              
+            </Typography>
+
+            <Typography
+              gutterBottom
+              variant="h1"
+              color="primary"
+              component="p"
+            >
+                 
+            </Typography>
+          </div>
+          {/*Liking on the Bubble UI*/}
+          <Button
+            size="small"
+            color="primary"
+            disabled={!user?.result}
+            onClick={handleLike}
+          >
+            <Likes />
+          </Button>
+
+          {/*Commenting on the Bubble UI*/}
+          {(user?.result) && (
+          <Button size="small" color = "primary" onClick={openPost}>
+            <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
+          </Button>
+          )}
+
+          {/*Delete on the Bubble UI*/}
+          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" /> &nbsp; Delete
+          </Button>
+          )}
         </div>
       </Paper>
     </Popup>
+    
     // <View style={styles.screen}>
     //   <Image
     //     style={styles.image}
@@ -219,6 +297,38 @@ const Post = ({ post, setCurrentId }) => {
     //   />
     // </View>
   );
+
+  // return (
+  //   <div style={{}} className={"postBubble"} onClick={openPost}>
+  //     {true ? (
+  //       <div
+  //         style={{
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //           flexDirection: "column",
+  //           transition: "opacity 0.1s ease",
+  //           pointerEvents: "none",
+  //         }}
+  //       >
+  //         <img
+  //           src={
+  //             post.selectedFile ||
+  //             "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+  //           }
+  //           alt=""
+  //           style={{
+  //             width: 100,
+  //             height: 100,
+  //             borderRadius: `100%`,
+  //             marginBottom: 10,
+  //           }}
+  //         ></img>
+  //       </div>
+  //     ) : null}
+  //   </div>
+  // );
 };
+
 
 export default Post;
