@@ -140,7 +140,7 @@ const Post = ({ post, setCurrentId }) => {
   );
 
   return (
-
+    
     <Popup
       trigger={
         <figure class= "figure"> 
