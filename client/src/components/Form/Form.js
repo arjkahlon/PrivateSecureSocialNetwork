@@ -4,21 +4,46 @@ import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 import FileInputComponent from "react-file-input-previews-base64";
 import { useHistory } from "react-router-dom";
+import BubbleUI from "react-bubble-ui";
+import ChipInput from "material-ui-chip-input";
 
 import { createPost, updatePost } from "../../actions/posts";
 import useStyles from "./styles";
-
+const options = {
+  size: 375,
+  minSize: 175,
+  gutter: 15,
+  provideProps: true,
+  numCols: 4,
+  fringeWidth: 100,
+  yRadius: 150,
+  xRadius: 150,
+  cornerRadius: 200,
+  showGuides: false,
+  compact: true,
+  gravitation: 0,
+};
+const showPreview = ({ base64 }) => {
+  return (
+    <BubbleUI className={"myBubbleUI"} options={options}>
+      {base64}
+    </BubbleUI>
+  );
+};
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     title: "",
     message: "",
     selectedFile: "",
+    tags: [],
   });
   const post = useSelector((state) =>
     currentId
       ? state.posts.posts.find((message) => message._id === currentId)
       : null
   );
+
+  const [selectedImage, setSelectedImage] = useState();
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -26,7 +51,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(0);
-    setPostData({ title: "", message: "", selectedFile: "" });
+    setPostData({ title: "", message: "", selectedFile: "", tags: [] });
   };
 
   useEffect(() => {
@@ -48,6 +73,17 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   };
 
+  const addChip = (tag) => {
+    setPostData({ ...postData, tags: [...postData.tags, tag] });
+  };
+
+  const deleteChip = (chip) => {
+    setPostData({
+      ...postData,
+      tags: postData.tags.filter((tag) => tag !== chip),
+    });
+  };
+
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper} elevation={6}>
@@ -57,6 +93,20 @@ const Form = ({ currentId, setCurrentId }) => {
       </Paper>
     );
   }
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
   return (
     <Paper className={classes.paper} elevation={6}>
       <form
@@ -111,16 +161,18 @@ const Form = ({ currentId, setCurrentId }) => {
                 setPostData({ ...postData, selectedFile: base64 })
               }
             />
-            // <FileInputComponent
-            //   labelText="Select file"
-            //   labelStyle={{ fontSize: 14 }}
-            //   multiple={false}
-            //   callbackFunction={(file_arr) =>
-            //     setPostData({ ...postData, selectedFile: file_arr })
-            //   }
-            //   accept="*"
-            // />
           }
+        </div>
+        <div style={{ padding: "5px 0", width: "94%" }}>
+          <ChipInput
+            name="tags"
+            variant="outlined"
+            label="Tags"
+            fullWidth
+            value={postData.tags}
+            onAdd={(chip) => addChip(chip)}
+            onDelete={(chip) => deleteChip(chip)}
+          />
         </div>
         <Button
           className={classes.buttonSubmit}

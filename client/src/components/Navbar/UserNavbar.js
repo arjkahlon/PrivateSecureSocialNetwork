@@ -13,7 +13,7 @@ import hourglass from "../../images/hourglass-sand-timer-Q9xEnN9-600.jpg";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
 
-const Navbar2 = () => {
+const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
@@ -80,10 +80,64 @@ const Navbar2 = () => {
           >
             HourGlass
           </Typography>
+
+          <Typography variant="h2" align="center" className={classes.userName}>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+            {user?.result.name}
+          </Typography>
         </div>
+
+        <Toolbar className={classes.toolbar}>
+          {user?.result ? (
+            <div className={classes.profile}>
+              <Button
+                variant="text"
+                component={Link}
+                to="/User"
+                className={classes.userProfile}
+              ></Button>
+              <Button
+                variant="text"
+                className={classes.logout}
+                onClick={logout}
+                align="right"
+              >
+                Logout
+              </Button>
+              <Button
+                component={Link}
+                to="/Home"
+                variant="text"
+                className={classes.logout}
+              >
+                <b>+</b>
+              </Button>
+            </div>
+          ) : (
+            <GoogleLogin
+              clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
+              render={(renderProps) => (
+                <Button
+                  className={classes.googleButton}
+                  color="primary"
+                  fullWidth
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  startIcon={<Icon />}
+                  variant="contained"
+                >
+                  Google Sign In
+                </Button>
+              )}
+              onSuccess={googleSuccess}
+              onFailure={googleError}
+              cookiePolicy="single_host_origin"
+            />
+          )}
+        </Toolbar>
       </AppBar>
     </React.Fragment>
   );
 };
 
-export default Navbar2;
+export default Navbar;

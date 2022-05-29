@@ -19,6 +19,11 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [state, setState] = React.useState(false);
+
+  const toggle = () => {
+    setState(!state);
+  };
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -57,94 +62,85 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="sticky" color="inherit">
-      <div className={classes.brandContainer}>
-        <img
-          className={classes.image}
-          src={hourglass}
-          alt="icon"
-          height="100"
-        />
-        <Typography
-          component={Link}
-          to="/Homes"
-          className={classes.heading}
-          variant="h2"
-          align="center"
-        >
-          HourGlass
-        </Typography>
-      </div>
-
-      <Toolbar className={classes.toolbar}>
-        {user?.result ? (
-          <div className={classes.profile}>
-            <Popup
-              trigger={
-                <Button variant="contained" className={classes.logout}>
-                  <Avatar
-                    className={classes.av}
-                    alt={user?.result.name}
-                    src={user?.result.imageUrl}
-                  >
-                    {user?.result.name.charAt(0)}
-                  </Avatar>
-                </Button>
-              }
-              position="right center"
-              className={classes.popup}
-            >
-              <div className={classes.popup}>
-                <Button
-                  component={Link}
-                  to="/User"
-                  variant="contained"
-                  className={classes.logout}
-                >
-                  User Profile
-                </Button>
-                <Button
-                  variant="contained"
-                  className={classes.logout}
-                  onClick={logout}
-                  align="right"
-                >
-                  Logout
-                </Button>
-              </div>
-            </Popup>
-            <Button
-              component={Link}
-              to="/Home"
-              variant="contained"
-              className={classes.logout}
-            >
-              +
-            </Button>
-          </div>
-        ) : (
-          <GoogleLogin
-            clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
-            render={(renderProps) => (
-              <Button
-                className={classes.googleButton}
-                color="primary"
-                fullWidth
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                startIcon={<Icon />}
-                variant="contained"
-              >
-                Google Sign In
-              </Button>
-            )}
-            onSuccess={googleSuccess}
-            onFailure={googleError}
-            cookiePolicy="single_host_origin"
+    <React.Fragment>
+      <AppBar
+        className={classes.appBar}
+        color="inherit"
+        sx={{ width: 1 }}
+        style={{ minWidth: "100%" }}
+      >
+        <div className={classes.brandContainer}>
+          <img
+            className={classes.image}
+            src={hourglass}
+            alt="icon"
+            height="100"
           />
-        )}
-      </Toolbar>
-    </AppBar>
+          <Typography
+            component={Link}
+            to="/Homes"
+            className={classes.heading}
+            variant="h2"
+            align="center"
+          >
+            HourGlass
+          </Typography>
+          <Button onClick={toggle} className={classes.popup}>
+            {state ? "Following" : "Home"}
+          </Button>
+        </div>
+
+        <Toolbar className={classes.toolbar}>
+          {user?.result ? (
+            <div className={classes.profile}>
+              <Button
+                variant="text"
+                component={Link}
+                to="/User"
+                className={classes.userProfile}
+              >
+                <Avatar
+                  className={classes.av}
+                  alt={user?.result.name}
+                  src={user?.result.imageUrl}
+                >
+                  {user?.result.name.charAt(0)}
+                </Avatar>
+              </Button>
+
+              <Button
+                component={Link}
+                to="/Home"
+                variant="text"
+                className={classes.logout}
+              >
+                <b>+</b>
+              </Button>
+            </div>
+          ) : (
+            <GoogleLogin
+              clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
+              render={(renderProps) => (
+                <Button
+                  className={classes.googleButton}
+                  color="primary"
+                  fullWidth
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  startIcon={<Icon />}
+                  variant="contained"
+                >
+                  Google Sign In
+                </Button>
+              )}
+              onSuccess={googleSuccess}
+              onFailure={googleError}
+              cookiePolicy="single_host_origin"
+            />
+          )}
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 };
 

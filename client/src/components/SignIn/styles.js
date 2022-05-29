@@ -1,9 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
+  root: {
+    "& .MuiContainer-root": {
+      width: "100%",
+    },
+  },
   aboutUs: {
-    backgroundColor: "rgb(40,51,64)",
-    color: "rgb(255,255,255)",
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
     width: "53%",
     height: "100%",
     paddingLeft: "10%",
@@ -11,12 +16,11 @@ export default makeStyles(() => ({
     justifyContent: "center",
     verticalAlign: "center",
     alignItems: "center",
-    marginTop: "2%",
-    fontSize: "40px",
+    marginTop: "7%",
+    fontSize: "35px",
   },
 
   logout: {
-    color: "rgb(255,255,255)",
     paddingLeft: "10%",
     paddingRight: "10%",
     justifyContent: "center",
@@ -26,14 +30,14 @@ export default makeStyles(() => ({
     verticalAlign: "center",
     fontSize: "20px",
     color: "rgb(255,255,255)",
-    backgroundColor: "rgb(71,161,235)",
+    backgroundColor: "rgb(50,131,252)",
   },
 
   googleButton: {
     paddingLeft: "10%",
     paddingRight: "10%",
     color: "rgb(255,255,255)",
-    backgroundColor: "rgb(71,161,235)",
+    backgroundColor: "rgb(50,131,252)",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",

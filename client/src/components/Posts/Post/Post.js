@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import {
   Card,
@@ -29,6 +29,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import "./styles.css";
 
 import { likePost, deletePost } from "../../../actions/posts";
+import { followUser } from "../../../actions/users";
 import useStyles from "./styles";
 
 const cardStyle = {
@@ -40,7 +41,32 @@ const cardStyle = {
 
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
+  const [followers, setFollowers] = useState(user?.result?.followers);
+  
+  const calculateTimeLeft = () => {
+    let difference = 86400000 + moment(post.createdAt) - new Date();
+    let timeLeft = {};
+    if (difference > 0) {
+      timeLeft = {
+        hours: Math.floor(difference / 3600000),
+        minutes: Math.floor(difference / 60000) % 60,
+        seconds: Math.floor(difference / 1000) % 60,
+      };
+    }
+
+    return timeLeft;
+  };
+
+  
   const [likes, setLikes] = useState(post?.likes);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -99,7 +125,6 @@ const Post = ({ post, setCurrentId }) => {
       };
     }
   };
-  
 
   const Likes = () => {
     if (likes.length > 0) {
@@ -119,6 +144,8 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
+    
+
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
@@ -127,17 +154,27 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
-  const openPost = (e) => {
-    // dispatch(getPost(post._id, history));
-    console.log("Clicked!");
-    history.push(`/posts/${post._id}`);
+  const handleFollow = async () => {
+    dispatch(followUser(post.creator));
+
+    if (followers.find((follower) => follower === post.creator)) {
+      setFollowers(followers.filter((id) => id !== post.creator));
+    } else {
+      setFollowers([...followers, post.creator]);
+    }
   };
 
-  const Modal = () => (
-    <Popup trigger={<button className="button"> </button>} modal>
-      <span> Modal content </span>
-    </Popup>
-  );
+  const Follows = () => {
+    if (followers) {
+      return followers.find((follower) => follower === post.creator) ? (
+        <>Following</>
+      ) : (
+        <>Follow</>
+      );
+    } else {
+      return <></>
+    }
+  };
 
   return (
     
@@ -212,6 +249,14 @@ const Post = ({ post, setCurrentId }) => {
               titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
               className={classes.cardHeader}
             />
+            <Button
+              style={{ marginTop: "10px" }}
+              color="primary"
+              variant="contained"
+              onClick={handleFollow}
+            >
+              <Follows />
+            </Button>
             <Typography color="secondary" variant="h6" align='center'>
               {/* <b>Post Dies in: &nbsp;</b> */}
               <b>{Math.floor(
@@ -270,48 +315,9 @@ const Post = ({ post, setCurrentId }) => {
         </div>
       </Paper>
     </Popup>
-    
-    // <View style={styles.screen}>
-    //   <Image
-    //     style={styles.image}
-    //     source={
-    //       post.selectedFile ||
-    //       "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-    //     }
-    //   />
-    // </View>
+  
   );
-
-  // return (
-  //   <div style={{}} className={"postBubble"} onClick={openPost}>
-  //     {true ? (
-  //       <div
-  //         style={{
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //           flexDirection: "column",
-  //           transition: "opacity 0.1s ease",
-  //           pointerEvents: "none",
-  //         }}
-  //       >
-  //         <img
-  //           src={
-  //             post.selectedFile ||
-  //             "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-  //           }
-  //           alt=""
-  //           style={{
-  //             width: 100,
-  //             height: 100,
-  //             borderRadius: `100%`,
-  //             marginBottom: 10,
-  //           }}
-  //         ></img>
-  //       </div>
-  //     ) : null}
-  //   </div>
-  // );
+  
 };
 
 

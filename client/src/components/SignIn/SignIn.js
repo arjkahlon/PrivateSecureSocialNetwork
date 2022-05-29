@@ -3,6 +3,8 @@ import { Container, Grow, Grid, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { getPosts } from "../../actions/posts";
+import { storeUser } from "../../actions/users";
+
 import decode from "jwt-decode";
 import useStyles from "./styles";
 import { GoogleLogin } from "react-google-login";
@@ -24,13 +26,10 @@ const SignIN = () => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
   const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch(storeUser(res, history));
 
-      history.push("/");
+      history.push("/Homes");
     } catch (error) {
       console.log(error);
     }
@@ -72,14 +71,23 @@ const SignIN = () => {
           >
             <div className={classes.aboutUs}>
               <p>
-                HourGlass is an open sourced private and secure social media
-                platform! With its morden, sleek, and user friendly interface it
-                is a social media website that can be used by anyone! Once
-                signed in with your Google account you can upload images and can
-                like and comment other people's images. Images stay on the
-                website for 24 hours. Each like adds 30 minutes to the image's
-                life and each comment adds 24 hours. So, sign in and start
-                posting cause the sand is emptying quickly from the HourGlass!
+                <b>HourGlass</b> is an open sourced private and secure social
+                media platform! With its morden, sleek, and user friendly
+                interface it is a social media website that can be used by
+                anyone!
+              </p>
+              <p>
+                {" "}
+                Once signed in with your Google account you can upload images
+                and can like and comment other people's images. Images stay on
+                the website for <b>24 hours</b>. Each like adds{" "}
+                <b>30 minutes</b> to the image's life and each comment adds{" "}
+                <b>1 hour</b>.
+              </p>
+              <p>
+                {" "}
+                So, sign in and start posting cause the sand is emptying quickly
+                from the <b>HourGlass</b>!
               </p>
             </div>
 
@@ -95,7 +103,7 @@ const SignIN = () => {
                     startIcon={<Icon />}
                     variant="contained"
                   >
-                    Please Sign In With Google
+                    Sign In With Google
                   </Button>
                 )}
                 onSuccess={googleSuccess}

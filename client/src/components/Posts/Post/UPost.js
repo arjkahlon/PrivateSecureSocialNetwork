@@ -21,6 +21,8 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch } from "react-redux";
 import moment from "moment";
+import Popup from "reactjs-popup"
+import CommentSection from "../../PostDetails/CommentSection";
 import { useHistory, Link } from "react-router-dom";
 
 import { likePost, deletePost } from "../../../actions/posts";
@@ -45,6 +47,20 @@ const UPost = ({ post, setCurrentId }) => {
       setLikes([...post.likes, userId]);
     }
   };
+
+  const styles = StyleSheet.create({
+    screen: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    // styling the image
+    image: {
+      width: 300,
+      height: 300,
+      borderRadius: 1000,
+    },
+  });
 
   const Likes = () => {
     if (likes.length > 0) {

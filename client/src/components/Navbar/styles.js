@@ -2,38 +2,38 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   appBar: {
-    width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-
-    backgroundColor: "rgba(21,32,43,0)",
-    color: "rgb(255,255,255)",
-    position: "sticky",
-    zIndex: 5,
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+    flexGrow: 1,
   },
   heading: {
-    color: "rgb(255,255,255)",
+    color: "rgb(0,0,0)",
     textDecoration: "none",
-    backgroundColor: "rgba(21,32,43,0)",
   },
   image: {
-    marginLeft: "14px",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
+    marginLeft: 0,
     height: "100px",
   },
   toolbar: {
     display: "flex",
     justifyContent: "flex-end",
-    width: "400px",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
+    width: "15%",
   },
   av: {
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+  },
+  popup: {
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+  },
+  popup: {
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   popup: {
     color: "rgb(255,255,255)",
@@ -44,29 +44,32 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     width: "400px",
     alignItems: "center",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
   },
   av: {
     color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
+    backgroundColor: "rgb(50,131,252)",
   },
   logout: {
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
-  },
+    color: "rgb(0,0,0)",
+    backgroundColor: "rgb(248,240,227)",
 
+    fontSize: 30,
+  },
+  userProfile: {
+    backgroundColor: "rgb(248,240,227)",
+    elevation: 0,
+    height: 60,
+    width: "10%",
+  },
   userName: {
     display: "flex",
-    alignItems: "center",
+    justifyContent: "center",
+
     textAlign: "center",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
   },
   brandContainer: {
     display: "flex",
     alignItems: "center",
-    color: "rgb(255,255,255)",
-    backgroundColor: "rgba(21,32,43,0)",
+    width: "95%",
   },
 }));
