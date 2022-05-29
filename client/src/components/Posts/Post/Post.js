@@ -183,7 +183,7 @@ const Post = ({ post, setCurrentId }) => {
 
           {/*Commenting on the Bubble UI*/}
           {(user?.result) && (
-          <Button size="small" color = "primary" onClick={openPost}>
+          <Button size="small" color = "primary">
             <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
           </Button>
           )}
@@ -242,23 +242,7 @@ const Post = ({ post, setCurrentId }) => {
               {post.message}
             </Typography>
 
-            <Typography
-              gutterBottom
-              variant="h1"
-              color="primary"
-              component="p"
-            >
-              
-            </Typography>
-
-            <Typography
-              gutterBottom
-              variant="h1"
-              color="primary"
-              component="p"
-            >
-                 
-            </Typography>
+            <CommentSection post={post}/>
           </div>
           {/*Liking on the Bubble UI*/}
           <Button
@@ -270,12 +254,12 @@ const Post = ({ post, setCurrentId }) => {
             <Likes />
           </Button>
 
-          {/*Commenting on the Bubble UI*/}
+          {/* Commenting on the Bubble UI
           {(user?.result) && (
           <Button size="small" color = "primary" onClick={openPost}>
             <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
           </Button>
-          )}
+          )} */}
 
           {/*Delete on the Bubble UI*/}
           {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
