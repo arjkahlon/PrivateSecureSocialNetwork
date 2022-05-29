@@ -3,6 +3,8 @@ import { Container, Grow, Grid, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { getPosts } from "../../actions/posts";
+import { storeUser } from "../../actions/users";
+
 import decode from "jwt-decode";
 import useStyles from "./styles";
 import { GoogleLogin } from "react-google-login";
@@ -24,13 +26,10 @@ const SignIN = () => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
   const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch(storeUser(res, history));
 
-      history.push("/");
+      history.push("/Homes");
     } catch (error) {
       console.log(error);
     }

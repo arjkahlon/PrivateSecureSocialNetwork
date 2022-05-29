@@ -24,6 +24,7 @@ export const getPosts = async (req, res) => {
         res.json({ data: posts });
     } catch (error) {    
         res.status(404).json({ message: error.message });
+        console.log('404 Error 1');
     }
 }
 
@@ -47,6 +48,7 @@ export const getPostsBySearch = async (req, res) => {
         res.json({ data: posts });
     } catch (error) {    
         res.status(404).json({ message: error.message });
+        console.log('404 Error 2');
     }
 }
 
@@ -68,6 +70,7 @@ export const getPostsByCreator = async (req, res) => {
         res.json({ data: posts });
     } catch (error) {    
         res.status(404).json({ message: error.message });
+        console.log('404 Error 3');
     }
 }
 
@@ -79,18 +82,22 @@ export const getPost = async (req, res) => {
         if (-(moment(post.createdAt) - (new Date()).getTime()) > 86400000) {
             await PostMessage.findByIdAndRemove(post._id);
             res.status(404).json({ message: error.message });
+            console.log('404 Error 4');
         }
         
         res.status(200).json(post);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).send('<h1>404! Page not found</h1>');
+        console.log('404 Error 5');
     }
 }
 
 export const createPost = async (req, res) => {
     const post = req.body;
+    console.log(post)
+    console.log(req.userId)
 
-    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    const newPostMessage = new PostMessage({ ...post, creator: String(req.userId), createdAt: new Date().toISOString() })
 
     try {
         await newPostMessage.save();
@@ -128,19 +135,21 @@ export const likePost = async (req, res) => {
     const { id } = req.params;
 
     if (!req.userId) {
-        return res.json({ message: "Unauthenticated" });
-      }
+      return res.json({ message: "Unauthenticated" });
+    }
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-    
+
     const post = await PostMessage.findById(id);
 
-    const index = post.likes.findIndex((id) => id ===String(req.userId));
+    const index = post.likes.findIndex((id) => id === String(req.userId));
 
     if (index === -1) {
+      console.log("liked")
       post.likes.push(req.userId);
       post.createdAt = moment(post.createdAt).add(30, 'm').toDate();
     } else {
+      console.log("unliked")
       post.likes = post.likes.filter((id) => id !== String(req.userId));
       post.createdAt = moment(post.createdAt).subtract(30, 'm').toDate();
     }

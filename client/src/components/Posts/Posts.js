@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import BubbleUI from "react-bubble-ui";
 import "react-bubble-ui/dist/index.css";
-
+import { CircularProgress } from '@material-ui/core/';
 import Post from "./Post/Post";
 import "./styles.css";
 
@@ -14,7 +14,7 @@ const Posts = ({ setCurrentId }) => {
   const options = {
     size: 375,
     minSize: 175,
-    gutter: 15,
+    gutter: 30,
     provideProps: true,
     numCols: 4,
     fringeWidth: 100,
@@ -31,7 +31,7 @@ const Posts = ({ setCurrentId }) => {
   });
 
   return isLoading ? (
-    <></>
+    <CircularProgress size="7em" />
   ) : (
     <BubbleUI className={"myBubbleUI"} options={options}>
       {childPosts}

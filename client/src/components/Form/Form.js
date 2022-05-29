@@ -5,7 +5,7 @@ import FileBase from "react-file-base64";
 import FileInputComponent from "react-file-input-previews-base64";
 import { useHistory } from "react-router-dom";
 import BubbleUI from "react-bubble-ui";
-import ChipInput from 'material-ui-chip-input';
+import ChipInput from "material-ui-chip-input";
 
 import { createPost, updatePost } from "../../actions/posts";
 import useStyles from "./styles";
@@ -35,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
     title: "",
     message: "",
     selectedFile: "",
-    tags: []
+    tags: [],
   });
   const post = useSelector((state) =>
     currentId
@@ -78,7 +78,10 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   const deleteChip = (chip) => {
-    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chip) });
+    setPostData({
+      ...postData,
+      tags: postData.tags.filter((tag) => tag !== chip),
+    });
   };
 
   if (!user?.result?.name) {
@@ -160,7 +163,7 @@ const Form = ({ currentId, setCurrentId }) => {
             />
           }
         </div>
-        <div style={{ padding: '5px 0', width: '94%' }}>
+        <div style={{ padding: "5px 0", width: "94%" }}>
           <ChipInput
             name="tags"
             variant="outlined"
