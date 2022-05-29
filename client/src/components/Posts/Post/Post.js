@@ -242,12 +242,15 @@ const Post = ({ post, setCurrentId }) => {
       <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
         <div className={classes.card}>
           <div className={classes.section}>
+            <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                {}
             <CardHeader
               avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
               title={post.name}
               titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
               className={classes.cardHeader}
             />
+            </Link>
             <Button
               style={{ marginTop: "10px" }}
               color="primary"
