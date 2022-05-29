@@ -1,73 +1,71 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { deepPurple } from "@material-ui/core/colors";
 
 export default makeStyles((theme) => ({
-  mainContainer: {
-    borderRadius: 15,
-    margin: "30px 0",
+  appBar: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "10px 50px",
-    backgroundColor: "rgba(21,32,43,0)",
-    color: "rgb(255,255,255)",
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+    flexGrow: 1,
   },
   heading: {
-    backgroundColor: "rgba(21,32,43,0)",
-    color: "rgb(255,255,255)",
+    color: "rgb(0,0,0)",
     textDecoration: "none",
   },
   image: {
-    marginLeft: "15px",
+    marginLeft: 0,
+    height: "100px",
   },
   toolbar: {
     display: "flex",
     justifyContent: "flex-end",
-    width: "400px",
+    width: "15%",
+  },
+  av: {
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+  },
+  popup: {
+    backgroundColor: "rgb(248,240,227)",
+    color: "rgb(0,0,0)",
+  },
+  popup: {
+    color: "rgb(255,255,255)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
   profile: {
     display: "flex",
     justifyContent: "space-between",
     width: "400px",
+    alignItems: "center",
+  },
+  av: {
+    color: "rgb(255,255,255)",
+    backgroundColor: "rgb(50,131,252)",
+  },
+  logout: {
+    color: "rgb(0,0,0)",
+    backgroundColor: "rgb(248,240,227)",
+
+    fontSize: 30,
+  },
+  userProfile: {
+    backgroundColor: "rgb(248,240,227)",
+    elevation: 0,
+    height: 60,
+    width: "10%",
   },
   userName: {
     display: "flex",
-    alignItems: "center",
-    backgroundColor: "rgba(21,32,43,0)",
+    justifyContent: "center",
+
+    textAlign: "center",
   },
   brandContainer: {
     display: "flex",
     alignItems: "center",
-  },
-  smMargin: {
-    margin: theme.spacing(1),
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
-  },
-  [theme.breakpoints.down("sm")]: {
-    appBar: {
-      padding: "10px 20px",
-    },
-    heading: {
-      display: "none",
-    },
-    userName: {
-      display: "none",
-    },
-    image: {
-      marginLeft: "5px",
-    },
-    toolbar: {
-      display: "flex",
-      justifyContent: "flex-end",
-      width: "160px",
-    },
-  },
-
-  actionDiv: {
-    textAlign: "center",
+    width: "95%",
   },
 }));

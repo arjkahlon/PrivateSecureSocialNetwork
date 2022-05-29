@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import Popup from "reactjs-popup";
 import hourglass from "../../images/hourglass-sand-timer-Q9xEnN9-600.jpg";
+
 //import "reactjs-popup/dist/index.css";
 
 //import "reactjs-popup/dist/index.css";
@@ -16,8 +17,9 @@ import { AUTH } from "../../constants/actionTypes";
 import Icon from "../Auth/icon";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
+import { SidebarData } from "./SidebarData";
 
-const Sidebar = () => {
+function Sidebar() {
 //   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 //   const dispatch = useDispatch();
 //   const location = useLocation();
