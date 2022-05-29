@@ -21,7 +21,6 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch } from "react-redux";
 import moment from "moment";
-import Popup from "reactjs-popup"
 import CommentSection from "../../PostDetails/CommentSection";
 import { useHistory, Link } from "react-router-dom";
 
