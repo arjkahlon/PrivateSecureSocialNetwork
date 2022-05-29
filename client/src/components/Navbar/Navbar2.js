@@ -73,26 +73,16 @@ const Navbar2 = () => {
           />
           <Typography
             component={Link}
-<<<<<<< HEAD
-            to="/"
-=======
             to="/Homes"
->>>>>>> dev
             className={classes.heading}
             variant="h2"
             align="center"
           >
             HourGlass
           </Typography>
-<<<<<<< HEAD
-        </Button>
-      </div>
-    </AppBar>
-=======
         </div>
       </AppBar>
     </React.Fragment>
->>>>>>> dev
   );
 };
 

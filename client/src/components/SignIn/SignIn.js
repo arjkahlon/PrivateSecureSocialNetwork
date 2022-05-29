@@ -26,20 +26,10 @@ const SignIN = () => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
   const googleSuccess = async (res) => {
-<<<<<<< HEAD
     try {
       dispatch(storeUser(res, history));
 
       history.push("/Homes");
-=======
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
-    try {
-      dispatch({ type: AUTH, data: { result, token } });
-
-      history.push("/");
->>>>>>> dev
     } catch (error) {
       console.log(error);
     }
@@ -67,58 +57,6 @@ const SignIN = () => {
   }, [location]);
 
   return (
-<<<<<<< HEAD
-    <Grow in>
-      <Container maxWidth="xl">
-        <Navbar2 />
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="stretch"
-          spacing={4}
-          className={classes.gridContainer}
-        >
-          <img
-            className={classes.image}
-            src={hourglass}
-            alt="icon"
-            height="100"
-          />
-          <Grid item xs={12} sm={6} md={9}>
-            <GoogleLogin
-              clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
-              render={(renderProps) => (
-                <Button
-                  className={classes.googleButton}
-                  color="primary"
-                  fullWidth
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                  startIcon={<Icon />}
-                  variant="contained"
-                >
-                  Please Sign In With Google
-                </Button>
-              )}
-              onSuccess={googleSuccess}
-              onFailure={googleError}
-              cookiePolicy="single_host_origin"
-            />
-          </Grid>
-          <Button
-            component={Link}
-            to="/Homes"
-            variant="contained"
-            color="primary"
-            className={classes.logout}
-          >
-            View Posts
-          </Button>
-        </Grid>
-      </Container>
-    </Grow>
-=======
     <>
       <Grow in>
         <Container maxWidth="xl">
@@ -188,7 +126,6 @@ const SignIN = () => {
         <Footer />
       </container>
     </>
->>>>>>> dev
   );
 };
 

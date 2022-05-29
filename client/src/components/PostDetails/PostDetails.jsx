@@ -1,26 +1,15 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
-=======
-import React, { useEffect } from "react";
->>>>>>> dev
 import {
   Container,
   Paper,
   Typography,
   CircularProgress,
   Divider,
-<<<<<<< HEAD
   Button
-=======
->>>>>>> dev
 } from "@material-ui/core/";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useParams, Link } from "react-router-dom";
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 import { getPost, getPostsBySearch } from "../../actions/posts";
 import CommentSection from "./CommentSection";
 import useStyles from "./styles";

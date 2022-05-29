@@ -23,9 +23,13 @@ import CommentSection from "../../PostDetails/CommentSection";
 import "./styles.css";
 
 import { likePost, deletePost } from "../../../actions/posts";
+import { followUser } from "../../../actions/users";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const [followers, setFollowers] = useState(user?.result?.followers);
+  
   const calculateTimeLeft = () => {
     let difference = 86400000 + moment(post.createdAt) - new Date();
     let timeLeft = {};
@@ -40,7 +44,7 @@ const Post = ({ post, setCurrentId }) => {
     return timeLeft;
   };
 
-  const user = JSON.parse(localStorage.getItem("profile"));
+  
   const [likes, setLikes] = useState(post?.likes);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   useEffect(() => {
@@ -127,30 +131,7 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
-    const user = JSON.parse(localStorage.getItem("profile"));
-    const [followers, setFollowers] = useState(user?.result?.followers);
-
-    const hasFollowedUser = followers.find(
-      (follower) => follower === post.creator
-    );
-
-    const handleFollow = async () => {
-      dispatch(followUser(post.creator));
-
-      if (hasFollowedUser) {
-        setFollowers(followers.filter((id) => id !== post.creator));
-      } else {
-        setFollowers([...followers, post.creator]);
-      }
-    };
-
-    const Follows = () => {
-      return followers.find((follower) => follower === post.creator) ? (
-        <>Following</>
-      ) : (
-        <>Follow</>
-      );
-    };
+    
 
     return (
       <>
@@ -171,6 +152,29 @@ const Post = ({ post, setCurrentId }) => {
       <span> Modal content </span>
     </Popup>
   );
+  
+
+  const handleFollow = async () => {
+    dispatch(followUser(post.creator));
+
+    if (followers.find((follower) => follower === post.creator)) {
+      setFollowers(followers.filter((id) => id !== post.creator));
+    } else {
+      setFollowers([...followers, post.creator]);
+    }
+  };
+
+  const Follows = () => {
+    if (followers) {
+      return followers.find((follower) => follower === post.creator) ? (
+        <>Following</>
+      ) : (
+        <>Follow</>
+      );
+    } else {
+      return <></>
+    }
+  };
 
   return (
     <Popup
