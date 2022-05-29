@@ -174,17 +174,6 @@ const Form = ({ currentId, setCurrentId }) => {
             onDelete={(chip) => deleteChip(chip)}
           />
         </div>
-        <div style={{ padding: "5px 0", width: "94%" }}>
-          <ChipInput
-            name="tags"
-            variant="outlined"
-            label="Tags"
-            fullWidth
-            value={postData.tags}
-            onAdd={(chip) => addChip(chip)}
-            onDelete={(chip) => deleteChip(chip)}
-          />
-        </div>
         <Button
           className={classes.buttonSubmit}
           variant="contained"
