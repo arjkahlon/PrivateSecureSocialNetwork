@@ -72,7 +72,7 @@ const SignIN = () => {
             <div className={classes.aboutUs}>
               <p>
                 <b>HourGlass</b> is an open sourced private and secure social
-                media platform! With its morden, sleek, and user friendly
+                media platform! With its modern, sleek, and user friendly
                 interface it is a social media website that can be used by
                 anyone!
               </p>
@@ -80,9 +80,8 @@ const SignIN = () => {
                 {" "}
                 Once signed in with your Google account you can upload images
                 and can like and comment other people's images. Images stay on
-                the website for <b>24 hours</b>. Each like adds{" "}
-                <b>30 minutes</b> to the image's life and each comment adds{" "}
-                <b>1 hour</b>.
+                the website for <b>1 hour</b>. Each like adds <b>30 minutes</b>{" "}
+                to the image's life and each comment adds <b>1 hour</b>.
               </p>
               <p>
                 {" "}

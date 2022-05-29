@@ -16,7 +16,7 @@ export default makeStyles(() => ({
     justifyContent: "center",
     verticalAlign: "center",
     alignItems: "center",
-    marginTop: "7%",
+    marginTop: "9%",
     fontSize: "35px",
   },
 

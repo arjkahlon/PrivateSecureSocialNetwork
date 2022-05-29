@@ -16,7 +16,7 @@ import {
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
-import CommentIcon from '@material-ui/icons/Comment';
+import CommentIcon from "@material-ui/icons/Comment";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
@@ -24,7 +24,7 @@ import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
 import ReadCommentSection from "../../../components/PostDetails/ReadComments";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import "./styles.css";
 
@@ -33,16 +33,16 @@ import { followUser } from "../../../actions/users";
 import useStyles from "./styles";
 
 const cardStyle = {
-  display: 'block',
-  width: '30vw',
-  transitionDuration: '0.3s',
-  height: '45vw'
-}
+  display: "block",
+  width: "30vw",
+  transitionDuration: "0.3s",
+  height: "45vw",
+};
 
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [followers, setFollowers] = useState(user?.result?.followers);
-  
+
   const calculateTimeLeft = () => {
     let difference = 86400000 + moment(post.createdAt) - new Date();
     let timeLeft = {};
@@ -57,7 +57,6 @@ const Post = ({ post, setCurrentId }) => {
     return timeLeft;
   };
 
-  
   const [likes, setLikes] = useState(post?.likes);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   useEffect(() => {
@@ -134,17 +133,17 @@ const Post = ({ post, setCurrentId }) => {
           &nbsp;
           {likes.length > 2
             ? `You and ${likes.length - 1} others`
-            : `${likes.length} like${likes.length > 1 ? "s" : ""}`} &nbsp; &nbsp;
+            : `${likes.length} like${likes.length > 1 ? "s" : ""}`}{" "}
+          &nbsp; &nbsp;
         </>
       ) : (
         <>
           <ThumbUpAltOutlined fontSize="small" />
-          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"} &nbsp; &nbsp;
+          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"} &nbsp;
+          &nbsp;
         </>
       );
     }
-
-    
 
     return (
       <>
@@ -172,70 +171,79 @@ const Post = ({ post, setCurrentId }) => {
         <>Follow</>
       );
     } else {
-      return <></>
+      return <></>;
     }
   };
 
   return (
-    
     <Popup
       trigger={
-        <figure class= "figure"> 
-        <figcaption  align= "center" color = "primary"> <h1><b>{Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  3600000
-              )}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  60000
-              ) % 60}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  1000
-          ) % 60} </b> </h1></figcaption>
-        <Button className="post">
-        
-          <div class="container">
-            <Image
-              style={borderStyle(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  3600000
-              )}
-              source={
-                post.selectedFile ||
-                "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-              }
-            />
-          {/*Liking on the Bubble UI*/}
-          <Button
-            size="small"
-            color="primary"
-            disabled={!user?.result}
-            onClick={handleLike}
-          >
-            <Likes />
-          </Button>
+        <figure style={{ color: "rgb(0,0,0)" }}>
+          <figcaption align="center">
+            {" "}
+            <h1>
+              <b>
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    3600000
+                )}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    60000
+                ) % 60}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    1000
+                ) % 60}{" "}
+              </b>{" "}
+            </h1>
+          </figcaption>
+          <Button className="post">
+            <div class="container">
+              <Image
+                style={borderStyle(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    3600000
+                )}
+                source={
+                  post.selectedFile ||
+                  "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+                }
+              />
+              {/*Liking on the Bubble UI*/}
+              <Button
+                size="small"
+                color="primary"
+                disabled={!user?.result}
+                onClick={handleLike}
+              >
+                <Likes />
+              </Button>
 
-          {/*Commenting on the Bubble UI*/}
-          {(user?.result) && (
-          <Button size="small" color = "primary">
-            <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
-          </Button>
-          )}
+              {/*Commenting on the Bubble UI*/}
+              {user?.result && (
+                <Button size="small" color="primary">
+                  <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
+                </Button>
+              )}
 
-          {/*Delete on the Bubble UI*/}
-          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
+              {/*Delete on the Bubble UI*/}
+              {(user?.result?.googleId === post?.creator ||
+                user?.result?._id === post?.creator) && (
+                <Button
+                  size="small"
+                  color="secondary"
+                  onClick={() => dispatch(deletePost(post._id))}
+                >
+                  <DeleteIcon fontSize="small" /> &nbsp; Delete
+                </Button>
+              )}
+            </div>
           </Button>
-          )}
-          </div>
-        </Button>
-      </figure>
+        </figure>
       }
-
       position="right center"
       Modal
       className={classes.popup}
@@ -246,7 +254,11 @@ const Post = ({ post, setCurrentId }) => {
             <CardHeader
               avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
               title={post.name}
-              titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
+              titleTypographyProps={{
+                variant: "body1",
+                component: "span",
+                color: "primary",
+              }}
               className={classes.cardHeader}
             />
             <Button
@@ -257,24 +269,31 @@ const Post = ({ post, setCurrentId }) => {
             >
               <Follows />
             </Button>
-            <Typography color="secondary" variant="h6" align='center'>
+            <Typography color="secondary" variant="h6" align="center">
               {/* <b>Post Dies in: &nbsp;</b> */}
-              <b>{Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  3600000
-              )}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  60000
-              ) % 60}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  1000
-              ) % 60} </b>
+              <b>
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    3600000
+                )}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    60000
+                ) % 60}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    1000
+                ) % 60}{" "}
+              </b>
             </Typography>
-            <Typography variant="h1" color="primary" component="h1" align='center'>
+            <Typography
+              variant="h1"
+              color="primary"
+              component="h1"
+              align="center"
+            >
               {post.title}
             </Typography>
             <Typography
@@ -282,12 +301,12 @@ const Post = ({ post, setCurrentId }) => {
               variant="body1"
               color="primary"
               component="p"
-              align = "center"
+              align="center"
             >
               {post.message}
             </Typography>
 
-            <CommentSection post={post}/>
+            <CommentSection post={post} />
           </div>
           {/*Liking on the Bubble UI*/}
           <Button
@@ -307,18 +326,20 @@ const Post = ({ post, setCurrentId }) => {
           )} */}
 
           {/*Delete on the Bubble UI*/}
-          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
-          </Button>
+          {(user?.result?.googleId === post?.creator ||
+            user?.result?._id === post?.creator) && (
+            <Button
+              size="small"
+              color="secondary"
+              onClick={() => dispatch(deletePost(post._id))}
+            >
+              <DeleteIcon fontSize="small" /> &nbsp; Delete
+            </Button>
           )}
         </div>
       </Paper>
     </Popup>
-  
   );
-  
 };
-
 
 export default Post;

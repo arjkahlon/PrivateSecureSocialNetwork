@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     padding: "10px 50px",
     backgroundColor: "rgba(21,32,43,0)",
-    color: "rgb(255,255,255)",
+    color: "rgb(0,0,0)",
   },
   heading: {
     backgroundColor: "rgba(21,32,43,0)",
