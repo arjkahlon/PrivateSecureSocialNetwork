@@ -35,6 +35,10 @@ export default makeStyles((theme) => ({
     color: "rgb(255,255,255)",
     backgroundColor: "rgba(21,32,43,0)",
   },
+  popup: {
+    color: "rgb(255,255,255)",
+    backgroundColor: "rgba(21,32,43,0)",
+  },
   profile: {
     display: "flex",
     justifyContent: "space-between",

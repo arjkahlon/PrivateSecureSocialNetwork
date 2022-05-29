@@ -6,8 +6,6 @@ import decode from "jwt-decode";
 import Popup from "reactjs-popup";
 //import "reactjs-popup/dist/index.css";
 
-//import "reactjs-popup/dist/index.css";
-
 import { GoogleLogin } from "react-google-login";
 import { AUTH } from "../../constants/actionTypes";
 import Icon from "../Auth/icon";

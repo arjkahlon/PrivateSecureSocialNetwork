@@ -75,12 +75,6 @@ const Post = () => {
             <Typography variant="h3" component="h2">
               {post.title}
             </Typography>
-            <Typography gutterBottom variant="h6" color="textSecondary" component="h2">
-              {post.tags.map((tag) => `#${tag} `)}
-            </Typography>
-            <Typography gutterBottom variant="body1" component="p">
-              {post.message}
-            </Typography>
             <Typography variant="h6">
               Created by:
               <Link
@@ -97,7 +91,7 @@ const Post = () => {
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
                   3600000
-              ) % 24}
+              )}
               :
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
