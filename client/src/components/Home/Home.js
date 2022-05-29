@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
 import Footer from "../Footer/footer";
 import Navbar from "../Navbar/Navbar";
+import Sidebar from "../SideBar/SideBar";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
 
@@ -36,6 +37,7 @@ const Home = () => {
     <Grow in>
       <Container maxWidth="xl">
         <Navbar />
+        {/* <Sidebar /> */}
         <Grid
           container
           direction="row"
