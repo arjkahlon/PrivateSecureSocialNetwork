@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import {
   Card,
@@ -23,11 +23,37 @@ import CommentSection from "../../PostDetails/CommentSection";
 import "./styles.css";
 
 import { likePost, deletePost } from "../../../actions/posts";
+import { followUser } from "../../../actions/users";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
+  const [followers, setFollowers] = useState(user?.result?.followers);
+  
+  const calculateTimeLeft = () => {
+    let difference = 86400000 + moment(post.createdAt) - new Date();
+    let timeLeft = {};
+    if (difference > 0) {
+      timeLeft = {
+        hours: Math.floor(difference / 3600000),
+        minutes: Math.floor(difference / 60000) % 60,
+        seconds: Math.floor(difference / 1000) % 60,
+      };
+    }
+
+    return timeLeft;
+  };
+
+  
   const [likes, setLikes] = useState(post?.likes);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -105,6 +131,8 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
+    
+
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
@@ -124,6 +152,29 @@ const Post = ({ post, setCurrentId }) => {
       <span> Modal content </span>
     </Popup>
   );
+  
+
+  const handleFollow = async () => {
+    dispatch(followUser(post.creator));
+
+    if (followers.find((follower) => follower === post.creator)) {
+      setFollowers(followers.filter((id) => id !== post.creator));
+    } else {
+      setFollowers([...followers, post.creator]);
+    }
+  };
+
+  const Follows = () => {
+    if (followers) {
+      return followers.find((follower) => follower === post.creator) ? (
+        <>Following</>
+      ) : (
+        <>Follow</>
+      );
+    } else {
+      return <></>
+    }
+  };
 
   return (
     <Popup
@@ -148,18 +199,21 @@ const Post = ({ post, setCurrentId }) => {
       <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
         <div className={classes.card}>
           <div className={classes.section}>
-            <Typography variant="h3" color="primary" component="h2">
+            <Typography variant="h3" component="h2">
               {post.title}
             </Typography>
             <Typography
               gutterBottom
-              variant="body1"
-              color="primary"
-              component="p"
+              variant="h6"
+              color="textSecondary"
+              component="h2"
             >
+              {post.tags.map((tag) => `#${tag} `)}
+            </Typography>
+            <Typography gutterBottom variant="body1" component="p">
               {post.message}
             </Typography>
-            <Typography variant="h6" color="primary">
+            <Typography variant="h6">
               Created by:
               <Link
                 to={`/creators/${post.name}`}
@@ -168,11 +222,19 @@ const Post = ({ post, setCurrentId }) => {
                 {` ${post.name}`}
               </Link>
             </Typography>
-            <Typography color="primary" variant="body2">
+            <Button
+              style={{ marginTop: "10px" }}
+              color="primary"
+              variant="contained"
+              onClick={handleFollow}
+            >
+              <Follows />
+            </Button>
+            <Typography variant="body2">
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
                   3600000
-              )}
+              ) % 24}
               :
               {Math.floor(
                 (86400000 + moment(post.createdAt) - new Date().getTime()) /
@@ -188,14 +250,6 @@ const Post = ({ post, setCurrentId }) => {
             <CommentSection post={post} />
             <Divider style={{ margin: "20px 0" }} />
           </div>
-          <Button
-            size="small"
-            color="primary"
-            disabled={!user?.result}
-            onClick={handleLike}
-          >
-            <Likes />
-          </Button>
           <div className={classes.imageSection}>
             <img
               className={classes.media}
@@ -209,15 +263,6 @@ const Post = ({ post, setCurrentId }) => {
         </div>
       </Paper>
     </Popup>
-    // <View style={styles.screen}>
-    //   <Image
-    //     style={styles.image}
-    //     source={
-    //       post.selectedFile ||
-    //       "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-    //     }
-    //   />
-    // </View>
   );
 };
 

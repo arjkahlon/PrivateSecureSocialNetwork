@@ -22,12 +22,9 @@ const Home = () => {
   // const loggedInUser = getUser(user?.email);
 
   const handleFollowingPage = () => {
-    if (followingPage)
-    {
+    if (followingPage) {
       followingPage = false;
-    }
-    else
-    {
+    } else {
       followingPage = true;
     }
     return followingPage;
@@ -49,7 +46,7 @@ const Home = () => {
           <Grid item xs={12} sm={6} md={9}>
             {/* if (!handleFollowingPage)
             { */}
-              <Posts setCurrentId={setCurrentId} />
+            <Posts setCurrentId={setCurrentId} />
             {/* } */}
           </Grid>
           <Footer />

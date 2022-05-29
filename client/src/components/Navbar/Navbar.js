@@ -87,12 +87,9 @@ const Navbar = () => {
           >
             HourGlass
           </Typography>
-          <Button 
-          onClick={toggle} 
-          className={classes.popup}
-        >
-          {state ? 'Following' :'Home'}
-        </Button>
+          <Button onClick={toggle} className={classes.popup}>
+            {state ? "Following" : "Home"}
+          </Button>
         </div>
 
         <Toolbar className={classes.toolbar}>
