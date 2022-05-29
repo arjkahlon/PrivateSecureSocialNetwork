@@ -23,7 +23,6 @@ import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
-import ReadCommentSection from "../../../components/PostDetails/ReadComments";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import "./styles.css";
@@ -276,6 +275,12 @@ const Post = ({ post, setCurrentId }) => {
             </Typography>
             <Typography variant="h1" color="primary" component="h1" align='center'>
               {post.title}
+            </Typography>
+            <Typography gutterBottom align='center' variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
+              <Link to={`/tags/${tag}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                {` #${tag} `}
+              </Link>
+            ))}
             </Typography>
             <Typography
               gutterBottom
