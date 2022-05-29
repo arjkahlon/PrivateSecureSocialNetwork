@@ -244,11 +244,19 @@ const Post = ({ post, setCurrentId }) => {
           </Button>
         </figure>
       }
-      position="right center"
+      position="right"
       Modal
       className={classes.popup}
     >
-      <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
+      <Paper
+        style={{
+          padding: "20px",
+          borderRadius: "15px",
+          marginRight: "10%",
+          marginTop: 400,
+        }}
+        elevation={6}
+      >
         <div className={classes.card}>
           <div className={classes.section}>
             <CardHeader

@@ -70,4 +70,7 @@ export default makeStyles({
     backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
   },
+  popup: {
+    backgroundColor: "rgb(0,0,0)",
+  },
 });

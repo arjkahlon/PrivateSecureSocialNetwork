@@ -82,8 +82,8 @@ const Navbar = () => {
           </Typography>
 
           <Typography variant="h2" align="center" className={classes.userName}>
-            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-            {user?.result.name}
+            &emsp; &emsp; &emsp;
+            <i>{user?.result.name}</i>
           </Typography>
         </div>
 
@@ -103,6 +103,14 @@ const Navbar = () => {
                 align="right"
               >
                 Logout
+              </Button>
+              <Button
+                component={Link}
+                to="/Homes"
+                variant="text"
+                className={classes.logout}
+              >
+                Home
               </Button>
               <Button
                 component={Link}

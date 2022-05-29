@@ -17,11 +17,12 @@ const CommentSection = ({ post }) => {
     const newComments = await dispatch(
       commentPost(`${user?.result?.name}: ${comment}`, post._id)
     );
+    try {
+      setComment("");
+      setComments(newComments);
 
-    setComment("");
-    setComments(newComments);
-
-    commentsRef.current.scrollIntoView({ behavior: "smooth" });
+      commentsRef.current.scrollIntoView({ behavior: "smooth" });
+    } catch {}
   };
 
   return (

@@ -15,5 +15,7 @@ export default makeStyles((theme) => ({
     },
     backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
+    marginTop: "7%",
+    width: "100%",
   },
 }));

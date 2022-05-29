@@ -89,35 +89,6 @@ const SignIN = () => {
                 from the <b>HourGlass</b>!
               </p>
             </div>
-
-            <Grid item xs={12} sm={6} md={9}>
-              <GoogleLogin
-                clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
-                render={(renderProps) => (
-                  <Button
-                    className={classes.googleButton}
-                    fullWidth
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
-                    startIcon={<Icon />}
-                    variant="contained"
-                  >
-                    Sign In With Google
-                  </Button>
-                )}
-                onSuccess={googleSuccess}
-                onFailure={googleError}
-                cookiePolicy="single_host_origin"
-              />
-            </Grid>
-            <Button
-              component={Link}
-              to="/Homes"
-              variant="contained"
-              className={classes.logout}
-            >
-              View Posts
-            </Button>
           </Grid>
         </Container>
       </Grow>

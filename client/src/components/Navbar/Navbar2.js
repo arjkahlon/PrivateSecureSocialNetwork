@@ -81,6 +81,69 @@ const Navbar2 = () => {
             HourGlass
           </Typography>
         </div>
+        <Toolbar className={classes.toolbar}>
+          <div>
+            <GoogleLogin
+              clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
+              render={(renderProps) => (
+                <Button
+                  className={classes.googleButton}
+                  color="primary"
+                  fullWidth
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  startIcon={<Icon />}
+                  variant="contained"
+                  style={{ width: 200 }}
+                >
+                  Google Sign In
+                </Button>
+              )}
+              onSuccess={googleSuccess}
+              onFailure={googleError}
+              cookiePolicy="single_host_origin"
+            />
+          </div>
+          <div>
+            <Button
+              className={classes.viewPost}
+              color="primary"
+              variant="contained"
+              component={Link}
+              to="/Homes"
+              style={{ marginLeft: "5%", width: 200 }}
+            >
+              View Posts
+            </Button>
+          </div>
+        </Toolbar>
+        {/* <GoogleLogin
+          clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
+          render={(renderProps) => (
+            <Button
+              className={classes.googleButton}
+              fullWidth
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+              startIcon={<Icon />}
+              variant="contained"
+            >
+              Sign In With Google
+            </Button>
+          )}
+          onSuccess={googleSuccess}
+          onFailure={googleError}
+          cookiePolicy="single_host_origin"
+        />
+
+        <Button
+          component={Link}
+          to="/Homes"
+          variant="contained"
+          className={classes.logout}
+        >
+          View Posts
+        </Button> */}
       </AppBar>
     </React.Fragment>
   );

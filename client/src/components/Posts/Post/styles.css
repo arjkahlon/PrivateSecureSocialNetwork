@@ -1,6 +1,9 @@
 .modal {
   font-size: 12px;
   border-radius: 100px;
+  margin-top: 7%;
+  margin-right: 50%;
+  background-color: black;
 }
 .modal > .header {
   width: 100%;
@@ -43,5 +46,3 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-

@@ -12,12 +12,9 @@ const Footer = () => {
       <p>
         This is an open source website. Build your own version of the website by
         cloning from GitHub: &nbsp;
-        <Link
-          to="https://github.com/arjkahlon/PrivateSecureSocialNetwork"
-          style={linkStyle}
-        >
+        <a href="https://github.com/arjkahlon/PrivateSecureSocialNetwork">
           <img className={classes.image} src={githubImage} alt="icon" />
-        </Link>
+        </a>
       </p>
     </div>
   );

@@ -107,6 +107,14 @@ const Navbar = () => {
                   {user?.result.name.charAt(0)}
                 </Avatar>
               </Button>
+              <Button
+                component={Link}
+                to="/Homes"
+                variant="text"
+                className={classes.logout}
+              >
+                Home
+              </Button>
 
               <Button
                 component={Link}
