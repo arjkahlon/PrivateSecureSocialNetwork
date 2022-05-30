@@ -111,9 +111,45 @@ const Post = ({ post, setCurrentId }) => {
         height: 300,
         borderRadius: 1000,
         borderWidth: 10,
-        borderColor: "#00FF00",
+        borderColor: "#009E00",
       };
-    } else if (value < 4) {
+    } else if (value <= 24 && value >= 18) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#00E200",
+      };
+    }
+    else if (value < 18 && value >= 12) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FFE200",
+      };
+    }
+    else if (value < 12 && value >= 6) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FF8C00",
+      };
+    }
+    else if (value < 6 && value >= 3) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FF5100",
+      };
+    }
+    else if (value < 3) {
       return {
         width: 300,
         height: 300,
