@@ -200,6 +200,10 @@ const Post = ({ post, setCurrentId }) => {
   const reload = () => {
     window.location.reload();
   }
+  const reloadFunction = () => {
+    window.location.reload();
+    return <></>
+  }
 
   const handleFollow = async () => {
     dispatch(followUser(post.creator));
@@ -290,16 +294,19 @@ const Post = ({ post, setCurrentId }) => {
       <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
         <div className={classes.card}>
           <div className={classes.section}>
+            <div> 
             <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
                 {}
             <CardHeader
               avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
               title={post.name}
-              titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
+              titleTypographyProps={{ variant: "body1", component: "span", color: "primary", onClick: {reload}}}
               className={classes.cardHeader}
-              onClick = {reload}
-            />
+            >
+            </CardHeader>
             </Link>
+            
+            </div>
             <Button
               style={{ marginTop: "10px" }}
               color="primary"

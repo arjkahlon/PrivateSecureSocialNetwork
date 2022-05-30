@@ -69,7 +69,11 @@ const CreatorOrTag = () => {
           <Grid item xs={12} sm={6} md={9}>
             {/* if (!handleFollowingPage)
             { */}
-            <h2>{name}</h2>
+            <h1>React-Bubble-UI</h1>
+            <h1>React-Bubble-UI2</h1>
+            <h1>{name}</h1>
+           
+            
             {isLoading ? <CircularProgress /> : (
               <BubbleUI className={"myBubbleUI"} options={options}>
               {childPosts}
