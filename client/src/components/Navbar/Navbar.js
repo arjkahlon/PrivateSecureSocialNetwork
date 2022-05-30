@@ -23,6 +23,7 @@ const Navbar = () => {
 
   const toggle = () => {
     setState(!state);
+    
   };
 
   const logout = () => {
@@ -85,9 +86,6 @@ const Navbar = () => {
           >
             HourGlass
           </Typography>
-          <Button onClick={toggle} className={classes.popup}>
-            {state ? "Following" : "Home"}
-          </Button>
         </div>
 
         <Toolbar className={classes.toolbar}>
