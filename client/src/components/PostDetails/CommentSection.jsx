@@ -40,15 +40,12 @@ const CommentSection = ({ post }) => {
           ))}
           <div ref={commentsRef} />
         </div>
-        <div style={{ width: "70%" }}>
-          <Typography gutterBottom variant="h6">
-            Write a comment
-          </Typography>
+        <div style={{ width: "50%" }}>
           <TextField
             fullWidth
             rows={4}
             variant="outlined"
-            label="Comment"
+            label="Write a Comment"
             multiline
             value={comment}
             disabled={!user?.result}

@@ -35,7 +35,7 @@ const Navbar2 = () => {
     try {
       dispatch({ type: AUTH, data: { result, token } });
 
-      history.push("/");
+      history.push("/Homes");
     } catch (error) {
       console.log(error);
     }

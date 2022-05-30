@@ -12,6 +12,8 @@ import Icon from "../Auth/icon";
 import hourglass from "../../images/hourglass-sand-timer-Q9xEnN9-600.jpg";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
+import HomeIcon from "@material-ui/icons/Home";
+import AddIcon from "@material-ui/icons/Add";
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -76,6 +78,7 @@ const Navbar = () => {
             alt="icon"
             height="100"
           />
+
           <Typography
             component={Link}
             to="/Homes"
@@ -113,7 +116,7 @@ const Navbar = () => {
                 variant="text"
                 className={classes.logout}
               >
-                Home
+                <HomeIcon fontSize="large" />
               </Button>
 
               <Button
@@ -122,7 +125,7 @@ const Navbar = () => {
                 variant="text"
                 className={classes.logout}
               >
-                <b>+</b>
+                <AddIcon fontSize="large" />
               </Button>
             </div>
           ) : (
