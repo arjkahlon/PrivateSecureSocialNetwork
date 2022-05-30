@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { useParams, useLocation } from 'react-router-dom';
 import {
   Card,
   CardActions,
@@ -17,13 +18,14 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import CommentIcon from '@material-ui/icons/Comment';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { getPostsByCreator, getPostsBySearch } from '../../../actions/posts';
 
 import "./styles.css";
 
@@ -39,6 +41,11 @@ const cardStyle = {
 }
 
 const Post = ({ post, setCurrentId }) => {
+
+  const { name } = useParams();
+  const { posts, isLoading } = useSelector((state) => state.posts);
+
+  const location = useLocation();
   const user = JSON.parse(localStorage.getItem("profile"));
   const [followers, setFollowers] = useState(user?.result?.followers);
   
@@ -143,6 +150,7 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
+
     
 
     return (
@@ -152,6 +160,10 @@ const Post = ({ post, setCurrentId }) => {
       </>
     );
   };
+
+  const reload = () => {
+    window.location.reload();
+  }
 
   const handleFollow = async () => {
     dispatch(followUser(post.creator));
@@ -249,6 +261,7 @@ const Post = ({ post, setCurrentId }) => {
               title={post.name}
               titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
               className={classes.cardHeader}
+              onClick = {reload}
             />
             </Link>
             <Button
@@ -279,7 +292,7 @@ const Post = ({ post, setCurrentId }) => {
             <Typography variant="h1" color="primary" component="h1" align='center'>
               {post.title}
             </Typography>
-            <Typography gutterBottom align='center' variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
+            <Typography onClick= {reload} gutterBottom align='center'  variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
               <Link to={`/tags/${tag}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
                 {` #${tag} `}
               </Link>

@@ -19,12 +19,18 @@ const CreatorOrTag = () => {
 
   const location = useLocation();
 
-  useEffect(() => {
+  const changeTags = () => {
     if (location.pathname.startsWith('/tags')) {
+      console.log("Got triggered!");
       dispatch(getPostsBySearch({ tags: name }));
     } else {
       dispatch(getPostsByCreator(name));
     }
+  }
+
+
+  useEffect(() => {
+    changeTags();
   }, []);
 
   if (!posts.length && !isLoading) return 'No posts';
