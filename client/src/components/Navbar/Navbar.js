@@ -19,11 +19,6 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
-  const [state, setState] = React.useState(false);
-
-  const toggle = () => {
-    setState(!state);
-  };
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -85,9 +80,7 @@ const Navbar = () => {
           >
             HourGlass
           </Typography>
-          <Button onClick={toggle} className={classes.popup}>
-            {state ? "Following" : "Home"}
-          </Button>
+
         </div>
 
         <Toolbar className={classes.toolbar}>

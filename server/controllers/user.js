@@ -22,30 +22,41 @@ export const login = async (req, res) => {
 };
 
 export const followUser = async (req, res) => {
-  const id = req.body.id;
+  const postUserId = req.body.id;
+  const loggedUserId = req.userId
 
 
-  if (!req.userId) {
+  if (!loggedUserId) {
     return res.json({ message: "Unauthenticated" });
   }
 
-  if (!UserModal.findOne({googleId: req.userId})) return res.status(404).send(`No user with id: ${id}`);
+  if (!UserModal.findOne({googleId: postUserId})) return res.status(404).send(`No user with id: ${id}`);
   
-  const user = await UserModal.findOne({googleId: id});
+  const postUser = await UserModal.findOne({googleId: postUserId});
+  const loggedUser = await UserModal.findOne({googleId: loggedUserId});
 
-  const index = user.followers.findIndex((id) => id === String(req.userId));
+  const postIndex = postUser.followers.findIndex((id) => id === String(loggedUserId));
+  const loggedIndex = loggedUser.following.findIndex((id) => id === String(postUserId));
 
-  if (index === -1) {
-    user.followers.push(req.userId);
+  if (postIndex === -1) {
+    postUser.followers.push(loggedUserId);
+    console.log(`${postUser.name} Gained Follower`);
+  } else {
+    postUser.followers = postUser.followers.filter((id) => id !== String(loggedUserId));
+    console.log(`${postUser.name} Lost Follower`);
+  }
+  if (loggedIndex === -1) {
+    loggedUser.following.push(postUserId);
     console.log("Followed")
   } else {
-    user.followers = user.followers.filter((id) => id !== String(req.userId));
+    loggedUser.following = loggedUser.following.filter((id) => id !== String(postUserId));
     console.log("Unfollowed")
   }
 
-  const updatedUser = await UserModal.findOneAndUpdate({googleId: id}, user, { new: true });
+  const updatedPostUser = await UserModal.findOneAndUpdate({googleId: postUserId}, postUser, { new: true });
+  const updatedLoggedUser = await UserModal.findOneAndUpdate({googleId: loggedUserId}, loggedUser, { new: true });
 
-  res.status(200).json(updatedUser);
+  res.status(200).json(updatedLoggedUser);
 }
 
 export const getUser = async (req, res) => { 
