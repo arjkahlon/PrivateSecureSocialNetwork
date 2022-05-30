@@ -8,6 +8,7 @@ import decode from "jwt-decode";
 import Popup from "reactjs-popup";
 import hourglass from "../../images/hourglass-sand-timer-Q9xEnN9-600.jpg";
 import './Sidebar.scss';
+import { FaHashtag } from 'react-icons/fa';
 // import 'react-pro-sidebar/dist/css/styles.css';
 
 //import "reactjs-popup/dist/index.css";
@@ -33,6 +34,8 @@ const Sidebar = () =>  {
     setState(!state);
   };
 
+  const style = {}
+
 //   const user = localStorage.get()
 //   const loggedinUser = getUser(user?.email)
 
@@ -47,7 +50,7 @@ const Sidebar = () =>  {
               <Menu/>
               <Menu/>
               <Menu/>
-              <Menu iconShape="square">
+              <Menu iconShape="circle">
                 <MenuItem>
                   <div>
                       <Button 
@@ -60,9 +63,14 @@ const Sidebar = () =>  {
                 </MenuItem>
                 <SubMenu title="Followers">
                 </SubMenu>
-                <SubMenu title="Tags">
+                <SubMenu 
+                  title="Tags"
+                  icon={<FaHashtag style = {style}/>}>
                 </SubMenu>
               </Menu>
+              <SidebarFooter>
+                GitHub here!
+              </SidebarFooter>
             </div>
           </ProSidebar>
       </div>

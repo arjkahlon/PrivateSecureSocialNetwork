@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="xl">
+      <Container>
         <Navbar />
         <Sidebar />
         <Grid
@@ -43,7 +43,7 @@ const Home = () => {
           spacing={4}
           className={classes.gridContainer}
         >
-          <Grid item xs={12} sm={6} md={9}>
+          <Grid item xs={12} sm={6} md={9}  style = {{width:"100%",}}>
             {/* if (!handleFollowingPage)
             { */}
             <Posts setCurrentId={setCurrentId} />
