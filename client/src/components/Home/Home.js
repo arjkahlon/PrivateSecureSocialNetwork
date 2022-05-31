@@ -5,6 +5,7 @@ import { getPosts } from "../../actions/posts";
 import Footer from "../Footer/footer";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
+import Sidebar2 from "../Sidebar/Sidebar2";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
 
@@ -35,6 +36,7 @@ const Home = () => {
       <Container>
         <Navbar />
         <Sidebar />
+        {/* <Sidebar2 /> */}
         <Grid
           container
           direction="row"
