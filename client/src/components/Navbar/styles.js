@@ -76,7 +76,8 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     width: "95%",
   },
-  // viewPost: {
-  //   width: "5%",
-  // },
+  postfilter: {
+    color: "rgb(0, 0, 0)",
+    backgroundColor: "rgba(21,32,43,0)",
+  },
 }));

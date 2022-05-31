@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import BubbleUI from "react-bubble-ui";
 import "react-bubble-ui/dist/index.css";
@@ -8,6 +8,8 @@ import "./styles.css";
 
 const Posts = ({ setCurrentId, showFollowers }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const [followers, setFollowers] = useState(user?.result?.followers);
 
   if (!posts.length && !isLoading) return "No posts";
 
