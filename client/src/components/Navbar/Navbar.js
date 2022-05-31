@@ -12,6 +12,8 @@ import Icon from "../Auth/icon";
 import hourglass from "../../images/hourglass-sand-timer-Q9xEnN9-600.jpg";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
+import HomeIcon from "@material-ui/icons/Home";
+import AddIcon from "@material-ui/icons/Add";
 import { getPostsBySearch } from '../../actions/posts';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
@@ -101,6 +103,7 @@ const Navbar = () => {
             alt="icon"
             height="100"
           />
+
           <Typography
             component={Link}
             to="/Homes"
@@ -131,6 +134,14 @@ const Navbar = () => {
                   {user?.result.name.charAt(0)}
                 </Avatar>
               </Button>
+              <Button
+                component={Link}
+                to="/Homes"
+                variant="text"
+                className={classes.logout}
+              >
+                <HomeIcon fontSize="large" />
+              </Button>
 
               <Button
                 component={Link}
@@ -138,7 +149,7 @@ const Navbar = () => {
                 variant="text"
                 className={classes.logout}
               >
-                <b>+</b>
+                <AddIcon fontSize="large" />
               </Button>
             </div>
           ) : (

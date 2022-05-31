@@ -5,7 +5,7 @@ export default makeStyles({
     height: 0,
     paddingTop: "56.25%",
     backgroundBlendMode: "darken",
-    color: "rgb(255,255,255)",
+    color: "rgb(0,0,0)",
   },
   border: {
     border: "solid",
@@ -69,5 +69,8 @@ export default makeStyles({
     textAlign: "initial",
     backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
+  },
+  popup: {
+    backgroundColor: "rgb(0,0,0)",
   },
 });

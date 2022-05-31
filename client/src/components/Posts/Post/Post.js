@@ -24,7 +24,8 @@ import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ReadCommentSection from "../../../components/PostDetails/ReadComments";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { getPostsByCreator, getPostsBySearch } from '../../../actions/posts';
 
 import "./styles.css";
@@ -34,11 +35,11 @@ import { followUser } from "../../../actions/users";
 import useStyles from "./styles";
 
 const cardStyle = {
-  display: 'block',
-  width: '30vw',
-  transitionDuration: '0.3s',
-  height: '45vw'
-}
+  display: "block",
+  width: "30vw",
+  transitionDuration: "0.3s",
+  height: "45vw",
+};
 
 const Post = ({ post, setCurrentId }) => {
 
@@ -63,7 +64,6 @@ const Post = ({ post, setCurrentId }) => {
     return timeLeft;
   };
 
-  
   const [likes, setLikes] = useState(post?.likes);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   useEffect(() => {
@@ -176,18 +176,17 @@ const Post = ({ post, setCurrentId }) => {
           &nbsp;
           {likes.length > 2
             ? `You and ${likes.length - 1} others`
-            : `${likes.length} like${likes.length > 1 ? "s" : ""}`} &nbsp; &nbsp;
+            : `${likes.length} like${likes.length > 1 ? "s" : ""}`}{" "}
+          &nbsp; &nbsp;
         </>
       ) : (
         <>
           <ThumbUpAltOutlined fontSize="small" />
-          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"} &nbsp; &nbsp;
+          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"} &nbsp;
+          &nbsp;
         </>
       );
     }
-
-
-    
 
     return (
       <>
@@ -223,75 +222,92 @@ const Post = ({ post, setCurrentId }) => {
         <>Follow</>
       );
     } else {
-      return <></>
+      return <></>;
     }
   };
 
   return (
-    
     <Popup
       trigger={
-        <figure class= "figure"> 
-        <figcaption  align= "center" color = "primary"> <h1><b>{Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  3600000
-              )}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  60000
-              ) % 60}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  1000
-          ) % 60} </b> </h1></figcaption>
-        <Button className="post">
-        
-          <div class="container">
-            <Image
-              style={borderStyle(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  3600000
-              )}
-              source={
-                post.selectedFile ||
-                "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-              }
-            />
-          {/*Liking on the Bubble UI*/}
-          <Button
-            size="small"
-            color="primary"
-            disabled={!user?.result}
-            onClick={handleLike}
-          >
-            <Likes />
-          </Button>
+        <figure style={{ color: "rgb(0,0,0)" }}>
+          <figcaption align="center">
+            {" "}
+            <h1>
+              <b>
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    3600000
+                )}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    60000
+                ) % 60}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    1000
+                ) % 60}{" "}
+              </b>{" "}
+            </h1>
+          </figcaption>
+          <Button className="post">
+            <div class="container">
+              <Image
+                style={borderStyle(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    3600000
+                )}
+                source={
+                  post.selectedFile ||
+                  "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+                }
+              />
+              {/*Liking on the Bubble UI*/}
+              <Button
+                size="small"
+                color="primary"
+                disabled={!user?.result}
+                onClick={handleLike}
+              >
+                <Likes />
+              </Button>
 
-          {/*Commenting on the Bubble UI*/}
-          {(user?.result) && (
-          <Button size="small" color = "primary">
-            <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
-          </Button>
-          )}
+              {/*Commenting on the Bubble UI*/}
+              {user?.result && (
+                <Button size="small" color="primary">
+                  <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
+                </Button>
+              )}
 
-          {/*Delete on the Bubble UI*/}
-          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
+              {/*Delete on the Bubble UI*/}
+              {(user?.result?.googleId === post?.creator ||
+                user?.result?._id === post?.creator) && (
+                <Button
+                  size="small"
+                  color="secondary"
+                  onClick={() => dispatch(deletePost(post._id))}
+                >
+                  <DeleteIcon fontSize="small" /> &nbsp; Delete
+                </Button>
+              )}
+            </div>
           </Button>
-          )}
-          </div>
-        </Button>
-      </figure>
+        </figure>
       }
-
-      position="right center"
+      position="right"
       Modal
       className={classes.popup}
     >
-      <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
+      <Paper
+        style={{
+          padding: "20px",
+          borderRadius: "15px",
+          marginRight: "10%",
+          marginTop: 400,
+        }}
+        elevation={6}
+      >
         <div className={classes.card}>
           <div className={classes.section}>
             <div> 
@@ -315,24 +331,31 @@ const Post = ({ post, setCurrentId }) => {
             >
               <Follows />
             </Button>
-            <Typography color="secondary" variant="h6" align='center'>
+            <Typography color="secondary" variant="h6" align="center">
               {/* <b>Post Dies in: &nbsp;</b> */}
-              <b>{Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  3600000
-              )}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  60000
-              ) % 60}
-              :
-              {Math.floor(
-                (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                  1000
-              ) % 60} </b>
+              <b>
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    3600000
+                )}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    60000
+                ) % 60}
+                :
+                {Math.floor(
+                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
+                    1000
+                ) % 60}{" "}
+              </b>
             </Typography>
-            <Typography variant="h1" color="primary" component="h1" align='center'>
+            <Typography
+              variant="h1"
+              color="primary"
+              component="h1"
+              align="center"
+            >
               {post.title}
             </Typography>
             <Typography onClick= {reload} gutterBottom align='center'  variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
@@ -346,12 +369,12 @@ const Post = ({ post, setCurrentId }) => {
               variant="body1"
               color="primary"
               component="p"
-              align = "center"
+              align="center"
             >
               {post.message}
             </Typography>
 
-            <CommentSection post={post}/>
+            <CommentSection post={post} />
           </div>
           {/*Liking on the Bubble UI*/}
           <Button
@@ -371,18 +394,20 @@ const Post = ({ post, setCurrentId }) => {
           )} */}
 
           {/*Delete on the Bubble UI*/}
-          {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
-          </Button>
+          {(user?.result?.googleId === post?.creator ||
+            user?.result?._id === post?.creator) && (
+            <Button
+              size="small"
+              color="secondary"
+              onClick={() => dispatch(deletePost(post._id))}
+            >
+              <DeleteIcon fontSize="small" /> &nbsp; Delete
+            </Button>
           )}
         </div>
       </Paper>
     </Popup>
-  
   );
-  
 };
-
 
 export default Post;

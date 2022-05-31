@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import BubbleUI from "react-bubble-ui";
 import "react-bubble-ui/dist/index.css";
-import { CircularProgress } from '@material-ui/core/';
+import { CircularProgress } from "@material-ui/core/";
 import Post from "./Post/Post";
 import "./styles.css";
 
