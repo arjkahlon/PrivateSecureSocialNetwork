@@ -82,8 +82,8 @@ const CreatorOrTag = () => {
           <Grid item xs={12} sm={6} md={9}>
             {/* if (!handleFollowingPage)
             { */}
-            <h1>Remove in OtherUsersAndTags</h1>
-            <h1>Remove in OtherUsersAndTags</h1>
+            {/* <h1>Remove in OtherUsersAndTags</h1>
+            <h1>Remove in OtherUsersAndTags</h1> */}
             <h1>
               <center>
               {makeAReturnString()}
