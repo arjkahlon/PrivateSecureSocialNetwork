@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { storeUser } from "../../actions/users";
+import { getPosts } from "../../actions/posts";
 import decode from "jwt-decode";
 
 //import "reactjs-popup/dist/index.css";
@@ -12,6 +14,9 @@ import Icon from "../Auth/icon";
 import hourglass from "../../images/hourglass-sand-timer-Q9xEnN9-600.jpg";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
+import HomeIcon from "@material-ui/icons/Home";
+import AddIcon from "@material-ui/icons/Add";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -19,7 +24,19 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [currentId, setCurrentId] = useState(0);
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [currentId, dispatch]);
+  const googleSuccess = async (res) => {
+    try {
+      dispatch(storeUser(res, history));
 
+      history.push("/Homes");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
 
@@ -27,20 +44,6 @@ const Navbar = () => {
 
     setUser(null);
   };
-
-  const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
-    try {
-      dispatch({ type: AUTH, data: { result, token } });
-
-      history.push("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const googleError = () =>
     alert("Google Sign In was unsuccessful. Try again later");
 
@@ -82,8 +85,8 @@ const Navbar = () => {
           </Typography>
 
           <Typography variant="h2" align="center" className={classes.userName}>
-            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-            {user?.result.name}
+            &emsp; &emsp; &emsp;
+            <i>{user?.result.name}</i>
           </Typography>
         </div>
 
@@ -96,13 +99,14 @@ const Navbar = () => {
                 to="/User"
                 className={classes.userProfile}
               ></Button>
+
               <Button
+                component={Link}
+                to="/Homes"
                 variant="text"
                 className={classes.logout}
-                onClick={logout}
-                align="right"
               >
-                Logout
+                <HomeIcon fontSize="large" />
               </Button>
               <Button
                 component={Link}
@@ -110,7 +114,15 @@ const Navbar = () => {
                 variant="text"
                 className={classes.logout}
               >
-                <b>+</b>
+                <AddIcon fontSize="large" />
+              </Button>
+              <Button
+                variant="text"
+                className={classes.logout}
+                onClick={logout}
+                align="right"
+              >
+                <ExitToAppIcon fontSize="large" />
               </Button>
             </div>
           ) : (

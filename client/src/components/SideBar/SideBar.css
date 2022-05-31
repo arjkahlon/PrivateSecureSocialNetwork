@@ -1,0 +1,17 @@
+#sidebar {
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  margin-left: 0;
+}
+
+#sidebar .pro-sidebar {
+  height: 100%;
+  margin-left: 0;
+  left: 0;
+}
+
+#footer {
+  position: absolute;
+  margin-left: 0;
+}

@@ -5,7 +5,8 @@ const userSchema = mongoose.Schema({
   googleId: { type: String, required: true },
   imageUrl: { type: String, required: true },
   name: { type: String, required:  true },
-  followers: { type: [String], default: [] }
+  followers: { type: [String], default: [] },
+  following: { type: [String], default: [] }
 });
 
 export default mongoose.model("User", userSchema);

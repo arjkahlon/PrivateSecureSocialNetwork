@@ -15,23 +15,24 @@ const Home3 = () => {
   }, [currentId, dispatch]);
 
   return (
-    <Grow in>
-      <Container maxWidth="xl">
-        <UserNavbar />
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="stretch"
-          spacing={4}
-        >
-          <Grid item xs={12} sm={50}>
-            <UserPosts setCurrentId={setCurrentId} />
-          </Grid>
+    <div>
+      <UserNavbar />
+      <Grid
+        container
+        direction="row"
+        justify="space-around"
+        alignItems="stretch"
+        spacing={4}
+      >
+        <h1 style={{ marginTop: "7%", color: "rgb(0,0,0)" }}>
+          <center>User Profile</center>
+        </h1>
+        <Grid item xs={12} sm={50}>
+          <UserPosts setCurrentId={setCurrentId} />
         </Grid>
-        <Footer />
-      </Container>
-    </Grow>
+      </Grid>
+      <Footer />
+    </div>
   );
 };
 
