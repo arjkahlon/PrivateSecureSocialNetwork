@@ -37,9 +37,7 @@ const Home = () => {
         <Grid
           container
           direction="row"
-          justify="space-around"
           alignItems="stretch"
-          spacing={4}
           className={classes.gridContainer}
         >
             <Button onClick={handleFollowingPage} className={classes.popup} color = "secondary">
@@ -51,7 +49,7 @@ const Home = () => {
             <Posts setCurrentId={setCurrentId} showFollowers={followingPage} />
             {/* } */}
           </Grid>
-          <Footer />
+          {/* <Footer /> */}
         </Grid>
       </Container>
     </Grow>
