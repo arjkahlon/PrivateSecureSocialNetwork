@@ -29,12 +29,12 @@ export const getPosts = async (req, res) => {
 }
 
 export const getPostsBySearch = async (req, res) => {
-    const { searchQuery } = req.query;
+    const { searchQuery, tags } = req.query;
 
     try {
         const title = new RegExp(searchQuery, "i");
 
-        const posts = await PostMessage.find({ $or: [ { title } ]});
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
         for (const post of posts) {
             if (-(moment(post.createdAt) - (new Date()).getTime()) > 86400000) {
                 await PostMessage.findByIdAndRemove(post._id);

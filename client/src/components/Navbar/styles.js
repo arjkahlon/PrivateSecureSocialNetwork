@@ -52,8 +52,12 @@ export default makeStyles((theme) => ({
   logout: {
     color: "rgb(0,0,0)",
     backgroundColor: "rgb(248,240,227)",
-
     fontSize: 30,
+  },
+  homeButton: {
+    color: "rgb(0,0,0)",
+    backgroundColor: "rgb(248,240,227)",
+    fontSize: 20,
   },
   userProfile: {
     backgroundColor: "rgb(248,240,227)",
