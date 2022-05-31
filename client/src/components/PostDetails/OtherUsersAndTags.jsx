@@ -53,7 +53,7 @@ const CreatorOrTag = () => {
     minSize: 175,
     gutter: 30,
     provideProps: true,
-    numCols: 4,
+    numCols: 6,
     fringeWidth: 100,
     yRadius: 150,
     xRadius: 150,
@@ -68,40 +68,38 @@ const CreatorOrTag = () => {
   });
 
   return (
-      <Grow in>
-      <Container maxWidth="xl">
-        <Navbar />
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="stretch"
-          spacing={4}
-          className={classes.gridContainer}
-        >
-          <Grid item xs={12} sm={6} md={9} style={{marginTop:"7%",}}>
-            {/* if (!handleFollowingPage)
-            { */}
-            {/* <h1>Remove in OtherUsersAndTags</h1>
-            <h1>Remove in OtherUsersAndTags</h1> */}
-            <h1>
-              <center>
-              {makeAReturnString()}
-              </center>
-            </h1>
-           
-            
-            {isLoading ? <CircularProgress /> : (
-              <BubbleUI className={"myBubbleUI"} options={options}>
-              {childPosts}
-            </BubbleUI>
-            )}
-            {/* } */}
-          </Grid>
-          <Footer />
+    <div>
+      <Navbar />
+      <Grid
+        container
+        direction="row"
+        justify="space-around"
+        alignItems="stretch"
+        spacing={4}
+        className={classes.gridContainer}
+      >
+        <Grid item xs={12} sm={6} md={9} style={{marginTop:"7%",}}>
+          {/* if (!handleFollowingPage)
+          { */}
+          {/* <h1>Remove in OtherUsersAndTags</h1>
+          <h1>Remove in OtherUsersAndTags</h1> */}
+          <h1>
+            <center>
+            {makeAReturnString()}
+            </center>
+          </h1>
+        
+          
+          {isLoading ? <CircularProgress /> : (
+            <BubbleUI className={"myBubbleUI"} options={options}>
+            {childPosts}
+          </BubbleUI>
+          )}
+          {/* } */}
         </Grid>
-      </Container>
-    </Grow>
+        <Footer />
+      </Grid>
+    </div>
   );
 };
 

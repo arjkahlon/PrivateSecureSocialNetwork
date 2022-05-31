@@ -50,7 +50,10 @@ export default makeStyles((theme) => ({
     backgroundColor: "rgb(248,240,227)",
     color: "rgb(0,0,0)",
   },
-  popup: {},
+  popup: {
+      alignItems: "center",
+      justifyContent: "center",
+  },
   profile: {
     display: "flex",
     justifyContent: "space-between",

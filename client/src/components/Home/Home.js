@@ -14,6 +14,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
 import Footer from "../Footer/footer";
+import { View, StyleSheet, Image } from "react-native";
 
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
@@ -138,9 +139,9 @@ const Home = () => {
               HourGlass
             </Typography>
           </div>
-          <div>
-            <Button onClick={handleFollowingPage} className={classes.popup}>
-              {followingPage ? "Home" : "Following"}
+          <div style={{ marginRight: "2%" }}>
+            <Button onClick={handleFollowingPage} variant="outlined" size="lg" style = {{marginLeft: 'flex', alignContent: 'center', justifyContent: 'center'}}> 
+              {followingPage ? "Following" : "Home"}
             </Button>
           </div>
           <TextField

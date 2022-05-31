@@ -26,7 +26,7 @@ const Posts = ({ setCurrentId, showFollowers }) => {
     minSize: 175,
     gutter: 30,
     provideProps: true,
-    numCols: 4,
+    numCols: 6,
     fringeWidth: 100,
     yRadius: 150,
     xRadius: 150,
