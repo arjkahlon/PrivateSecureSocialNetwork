@@ -117,7 +117,7 @@ const Navbar = () => {
             variant="h2"
             align="center"
           >
-            HourGlass
+            ourGlass
           </Typography>
         </div>
         <TextField

@@ -71,8 +71,14 @@ const SignIN = () => {
             spacing={4}
             className={classes.gridContainer}
           >
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
             <img className={classes.image} src={pic} alt="icon" />
             <div className={classes.aboutUs}>
+              <br></br>
+              <br></br>
               <p>
                 HourGlass is an open sourced private and secure social media
                 platform! With its modern, sleek, and user friendly interface it
@@ -91,6 +97,10 @@ const SignIN = () => {
                 from the HourGlass!
               </p>
             </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </Grid>
         </Container>
       </Grow>

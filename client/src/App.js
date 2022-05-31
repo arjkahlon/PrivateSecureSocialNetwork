@@ -14,8 +14,8 @@ const App = () => {
     <BrowserRouter>
       <Container maxWidth="xl">
         <Switch>
-          <Route path="/" exact component={() => <Redirect to="/abc" />} />
-          <Route path="/abc" exact component={SignIN} />
+          <Route path="/" exact component={() => <Redirect to="/login" />} />
+          <Route path="/login" exact component={SignIN} />
           <Route path="/posts" exact component={Home} />
           <Route path="/posts/search" exact component={Home} />
           <Route path="/posts/:id" exact component={PostDetails} />

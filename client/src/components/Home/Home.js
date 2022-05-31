@@ -136,7 +136,7 @@ const Home = () => {
               variant="h2"
               align="center"
             >
-              HourGlass
+              ourGlass
             </Typography>
           </div>
           <div style={{ marginRight: "2%" }}>

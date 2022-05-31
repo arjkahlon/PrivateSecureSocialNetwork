@@ -79,7 +79,7 @@ const Navbar2 = () => {
             variant="h2"
             align="center"
           >
-            HourGlass
+            ourGlass
           </Typography>
         </div>
         <Toolbar className={classes.toolbar}>

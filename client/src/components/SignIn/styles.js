@@ -22,7 +22,7 @@ export default makeStyles(() => ({
     marginTop: "20%",
     marginBottom: "20%",
     marginRight: 0,
-    height: 300,
+    width: 600,
   },
   logout: {
     paddingLeft: "10%",

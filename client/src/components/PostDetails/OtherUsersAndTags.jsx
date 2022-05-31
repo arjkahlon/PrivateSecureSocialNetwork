@@ -70,19 +70,7 @@ const CreatorOrTag = () => {
   return (
     <div>
       <Navbar />
-      <Grid
-        container
-        direction="row"
-        justify="space-around"
-        alignItems="stretch"
-        spacing={4}
-        className={classes.gridContainer}
-      >
-        <Grid item xs={12} sm={6} md={9} style={{marginTop:"7%",}}>
-          {/* if (!handleFollowingPage)
-          { */}
-          {/* <h1>Remove in OtherUsersAndTags</h1>
-          <h1>Remove in OtherUsersAndTags</h1> */}
+        <div style={{marginTop:"7%",}}>
           <h1>
             <center>
             {makeAReturnString()}
@@ -96,9 +84,8 @@ const CreatorOrTag = () => {
           </BubbleUI>
           )}
           {/* } */}
-        </Grid>
+        </div>
         <Footer />
-      </Grid>
     </div>
   );
 };
