@@ -4,5 +4,11 @@
 }
 
 #sidebar .pro-sidebar {
-    height: 95vh
+    height: 95vh;
+    top: 110px;
+    right: 59px;
+}
+
+#footer {
+    position: absolute;
 }

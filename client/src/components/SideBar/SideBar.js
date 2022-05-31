@@ -44,12 +44,6 @@ const Sidebar = () =>  {
       <div id = "sidebar">
         <ProSidebar className = {classes.appBar}>
             <div id="header">
-              <Menu/>
-              <Menu/>
-              <Menu/>
-              <Menu/>
-              <Menu/>
-              <Menu/>
               <Menu iconShape="circle">
                 <MenuItem>
                   <div>
@@ -68,8 +62,15 @@ const Sidebar = () =>  {
                   icon={<FaHashtag style = {style}/>}>
                 </SubMenu>
               </Menu>
-              <SidebarFooter>
-                GitHub here!
+              <SidebarFooter style={{ textAlign: "center"}}>
+                <div
+                  className="sidebar-footer"
+                  style={{
+                    padding: "20px 24px"
+                  }}
+                >
+                  GitHub here!
+                </div>
               </SidebarFooter>
             </div>
           </ProSidebar>
