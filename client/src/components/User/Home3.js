@@ -17,7 +17,7 @@ const Home3 = () => {
   return (
     <div>
       <UserNavbar />
-      <Grid
+      <div
         container
         direction="row"
         justify="space-around"
@@ -27,10 +27,8 @@ const Home3 = () => {
         <h1 style={{ marginTop: "7%", color: "rgb(0,0,0)" }}>
           <center>User Profile</center>
         </h1>
-        <Grid item xs={12} sm={50}>
           <UserPosts setCurrentId={setCurrentId} />
-        </Grid>
-      </Grid>
+      </div>
       <Footer />
     </div>
   );
