@@ -197,14 +197,13 @@ const Home = () => {
                   <Button
                     className={classes.googleButton}
                     color="primary"
-                    fullWidth
+                    style={{width:"190%"}}
                     component={Link}
                     to="/login"
                     disabled={renderProps.disabled}
-                    startIcon={<Icon />}
                     variant="contained"
                   >
-                    Google Sign In
+                    Sign In
                   </Button>
                 )}
                 onSuccess={googleSuccess}
