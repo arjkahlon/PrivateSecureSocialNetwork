@@ -81,9 +81,9 @@ const Navbar = () => {
             HourGlass
           </Typography>
 
-          <Typography variant="h2" align="center" className={classes.userName}>
-            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-            {user?.result.name}
+          <Typography variant="h4" align="center" className={classes.userName}>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+            <b>{user?.result.name}</b>
           </Typography>
         </div>
 

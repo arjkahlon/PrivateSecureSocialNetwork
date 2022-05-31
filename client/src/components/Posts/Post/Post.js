@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { useParams, useLocation } from 'react-router-dom';
 import {
   Card,
   CardActions,
@@ -17,14 +18,14 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import CommentIcon from '@material-ui/icons/Comment';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
-import ReadCommentSection from "../../../components/PostDetails/ReadComments";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { getPostsByCreator, getPostsBySearch } from '../../../actions/posts';
 
 import "./styles.css";
 
@@ -40,6 +41,11 @@ const cardStyle = {
 }
 
 const Post = ({ post, setCurrentId }) => {
+
+  const { name } = useParams();
+  const { posts, isLoading } = useSelector((state) => state.posts);
+
+  const location = useLocation();
   const user = JSON.parse(localStorage.getItem("profile"));
   const [following, setFollowing] = useState(user?.result?.following);
   
@@ -105,9 +111,45 @@ const Post = ({ post, setCurrentId }) => {
         height: 300,
         borderRadius: 1000,
         borderWidth: 10,
-        borderColor: "#00FF00",
+        borderColor: "#009E00",
       };
-    } else if (value < 4) {
+    } else if (value <= 24 && value >= 18) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#00E200",
+      };
+    }
+    else if (value < 18 && value >= 12) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FFE200",
+      };
+    }
+    else if (value < 12 && value >= 6) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FF8C00",
+      };
+    }
+    else if (value < 6 && value >= 3) {
+      return {
+        width: 300,
+        height: 300,
+        borderRadius: 1000,
+        borderWidth: 10,
+        borderColor: "#FF5100",
+      };
+    }
+    else if (value < 3) {
       return {
         width: 300,
         height: 300,
@@ -144,6 +186,7 @@ const Post = ({ post, setCurrentId }) => {
       );
     }
 
+
     
 
     return (
@@ -153,6 +196,14 @@ const Post = ({ post, setCurrentId }) => {
       </>
     );
   };
+
+  const reload = () => {
+    window.location.reload();
+  }
+  const reloadFunction = () => {
+    window.location.reload();
+    return <></>
+  }
 
   const handleFollow = async () => {
     dispatch(followUser(post.creator));
@@ -243,12 +294,19 @@ const Post = ({ post, setCurrentId }) => {
       <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
         <div className={classes.card}>
           <div className={classes.section}>
+            <div> 
+            <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                {}
             <CardHeader
               avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
               title={post.name}
-              titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
+              titleTypographyProps={{ variant: "body1", component: "span", color: "primary", onClick: {reload}}}
               className={classes.cardHeader}
-            />
+            >
+            </CardHeader>
+            </Link>
+            
+            </div>
             <Button
               style={{ marginTop: "10px" }}
               color="primary"
@@ -276,6 +334,12 @@ const Post = ({ post, setCurrentId }) => {
             </Typography>
             <Typography variant="h1" color="primary" component="h1" align='center'>
               {post.title}
+            </Typography>
+            <Typography onClick= {reload} gutterBottom align='center'  variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
+              <Link to={`/tags/${tag}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                {` #${tag} `}
+              </Link>
+            ))}
             </Typography>
             <Typography
               gutterBottom
