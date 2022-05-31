@@ -112,7 +112,7 @@ const Navbar = () => {
           </Typography>
 
         </div>
-        <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Memories" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} InputProps={{endAdornment: <SearchButton />}}/>
+        <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Posts" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} InputProps={{endAdornment: <SearchButton />}}/>
 
         <Toolbar className={classes.toolbar}>
           {user?.result ? (
