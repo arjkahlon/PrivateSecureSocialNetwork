@@ -110,7 +110,6 @@ const Navbar = () => {
             alt="icon"
             height="100"
           />
-
           <Typography
             component={Link}
             to="/Homes"
