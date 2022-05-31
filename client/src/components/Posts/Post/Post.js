@@ -322,6 +322,7 @@ const Post = ({ post, setCurrentId }) => {
             </Link>
             
             </div>
+            {user?.result && (
             <Button
               style={{ marginTop: "10px" }}
               color="primary"
@@ -329,7 +330,8 @@ const Post = ({ post, setCurrentId }) => {
               onClick={handleFollow}
             >
               <Follows />
-            </Button>
+            </Button>)}
+            
             <Typography color="secondary" variant="h6" align="center">
               {/* <b>Post Dies in: &nbsp;</b> */}
               <b>
