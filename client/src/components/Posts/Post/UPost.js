@@ -65,6 +65,8 @@ const UPost = ({ post, setCurrentId }) => {
     window.location.reload();
   }
 
+  
+
   const Likes = () => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId) ? (
