@@ -15,6 +15,19 @@ const CreatorOrTag = () => {
   const { name } = useParams();
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const makeAReturnString = () => {
+    if (location.pathname.startsWith('/tags')) {
+      var tagMessage = "#" + name + " posts"
+      return tagMessage;
+    }
+    else {
+      var creatorMessage = "Posts by " + name;
+      return creatorMessage;
+    }
+  }
+
+
   const { posts, isLoading } = useSelector((state) => state.posts);
 
   const location = useLocation();
@@ -69,9 +82,13 @@ const CreatorOrTag = () => {
           <Grid item xs={12} sm={6} md={9}>
             {/* if (!handleFollowingPage)
             { */}
-            <h1>React-Bubble-UI</h1>
-            <h1>React-Bubble-UI2</h1>
-            <h1>{name}</h1>
+            <h1>Remove in OtherUsersAndTags</h1>
+            <h1>Remove in OtherUsersAndTags</h1>
+            <h1>
+              <center>
+              {makeAReturnString()}
+              </center>
+            </h1>
            
             
             {isLoading ? <CircularProgress /> : (
