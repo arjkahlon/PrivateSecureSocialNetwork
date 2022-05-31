@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { AppBar, Typography, Toolbar, Avatar, Button, TextField } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
@@ -14,6 +14,9 @@ import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
 import HomeIcon from "@material-ui/icons/Home";
 import AddIcon from "@material-ui/icons/Add";
+import { getPostsBySearch } from '../../actions/posts';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -21,11 +24,8 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
-  const [state, setState] = React.useState(false);
 
-  const toggle = () => {
-    setState(!state);
-  };
+  const [search, setSearch] = useState('');
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -63,6 +63,31 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      searchPost();
+    }
+  };
+  const reload = () => {
+    window.location.reload();
+  }
+  
+  const searchPost = () => {
+    if (search.trim()) {
+      dispatch(getPostsBySearch({search}));
+      history.push(`/posts/search?searchQuery=${search || 'none'}`);
+    } else {
+      history.push('/Homes');
+      reload();
+    }
+  };
+
+  const SearchButton = () => (
+    <IconButton onClick={searchPost}>
+      <SearchIcon />
+    </IconButton>
+  )
+
   return (
     <React.Fragment>
       <AppBar
@@ -88,10 +113,9 @@ const Navbar = () => {
           >
             HourGlass
           </Typography>
-          <Button onClick={toggle} className={classes.popup}>
-            {state ? "Following" : "Home"}
-          </Button>
+
         </div>
+        <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Posts" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} InputProps={{endAdornment: <SearchButton />}}/>
 
         <Toolbar className={classes.toolbar}>
           {user?.result ? (

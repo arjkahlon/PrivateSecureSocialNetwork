@@ -26,6 +26,7 @@ const SignIN = () => {
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
+  
   const googleSuccess = async (res) => {
     try {
       dispatch(storeUser(res, history));
