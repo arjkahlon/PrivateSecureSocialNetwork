@@ -47,7 +47,7 @@ const Post = ({ post, setCurrentId }) => {
 
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const [followers, setFollowers] = useState(user?.result?.followers);
+  const [following, setFollowing] = useState(user?.result?.following);
   
   const calculateTimeLeft = () => {
     let difference = 86400000 + moment(post.createdAt) - new Date();
@@ -208,16 +208,16 @@ const Post = ({ post, setCurrentId }) => {
   const handleFollow = async () => {
     dispatch(followUser(post.creator));
 
-    if (followers.find((follower) => follower === post.creator)) {
-      setFollowers(followers.filter((id) => id !== post.creator));
+    if (following.find((follower) => follower === post.creator)) {
+      setFollowing(following.filter((id) => id !== post.creator));
     } else {
-      setFollowers([...followers, post.creator]);
+      setFollowing([...following, post.creator]);
     }
   };
 
   const Follows = () => {
-    if (followers) {
-      return followers.find((follower) => follower === post.creator) ? (
+    if (following) {
+      return following.find((follower) => follower === post.creator) ? (
         <>Following</>
       ) : (
         <>Follow</>

@@ -10,9 +10,9 @@ export default makeStyles((theme) => ({
     color: "rgb(255,255,255)",
   },
   gridContainer: {
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column-reverse",
-    },
+    // [theme.breakpoints.down("xs")]: {
+    //   flexDirection: "column-reverse",
+    // },
     backgroundColor: "rgba(21,32,43,0)",
     color: "rgb(255,255,255)",
   },

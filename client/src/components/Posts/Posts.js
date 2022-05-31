@@ -6,10 +6,18 @@ import { CircularProgress } from '@material-ui/core/';
 import Post from "./Post/Post";
 import "./styles.css";
 
-const Posts = ({ setCurrentId }) => {
+const Posts = ({ setCurrentId, showFollowers }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
 
   if (!posts.length && !isLoading) return "No posts";
+
+  let displayPosts;
+  if (showFollowers) {
+    const following = JSON.parse(localStorage.getItem("profile"))?.result?.following;
+    displayPosts = posts.filter((post) => following.includes(post.creator))
+  } else {
+    displayPosts = posts
+  }
 
   const options = {
     size: 375,
@@ -26,7 +34,7 @@ const Posts = ({ setCurrentId }) => {
     gravitation: 0,
   };
 
-  const childPosts = posts?.map((post, i) => {
+  const childPosts = displayPosts?.map((post, i) => {
     return <Post post={post} key={i} setCurrentId={setCurrentId} />;
   });
 

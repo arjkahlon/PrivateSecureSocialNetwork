@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Grow, Grid } from "@material-ui/core";
+import { Container, Grow, Grid, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
 import Footer from "../Footer/footer";
@@ -13,7 +13,7 @@ const Home = () => {
 
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
-  const followingPage = false;
+  const [followingPage, setFollowingPage] = useState(false);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -23,11 +23,10 @@ const Home = () => {
 
   const handleFollowingPage = () => {
     if (followingPage) {
-      followingPage = false;
+      setFollowingPage(false);
     } else {
-      followingPage = true;
+      setFollowingPage(true);
     }
-    return followingPage;
   };
 
   return (
@@ -38,18 +37,19 @@ const Home = () => {
         <Grid
           container
           direction="row"
-          justify="space-around"
           alignItems="stretch"
-          spacing={4}
           className={classes.gridContainer}
         >
+            <Button onClick={handleFollowingPage} className={classes.popup} color = "secondary">
+                {followingPage ? "Following" : "Home"}
+            </Button>
           <Grid item xs={12} sm={6} md={9}>
             {/* if (!handleFollowingPage)
             { */}
-            <Posts setCurrentId={setCurrentId} />
+            <Posts setCurrentId={setCurrentId} showFollowers={followingPage} />
             {/* } */}
           </Grid>
-          <Footer />
+          {/* <Footer /> */}
         </Grid>
       </Container>
     </Grow>
