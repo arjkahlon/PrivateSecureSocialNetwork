@@ -263,14 +263,14 @@ const Post = ({ post, setCurrentId }) => {
                 }
               />
               {/*Liking on the Bubble UI*/}
-              <Button
+              {user?.result && (<Button
                 size="small"
                 color="primary"
                 disabled={!user?.result}
                 onClick={handleLike}
               >
                 <Likes />
-              </Button>
+              </Button>)}
 
               {/*Commenting on the Bubble UI*/}
               {user?.result && (
@@ -331,7 +331,6 @@ const Post = ({ post, setCurrentId }) => {
             >
               <Follows />
             </Button>)}
-            
             <Typography color="secondary" variant="h6" align="center">
               {/* <b>Post Dies in: &nbsp;</b> */}
               <b>

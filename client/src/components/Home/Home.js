@@ -198,7 +198,8 @@ const Home = () => {
                     className={classes.googleButton}
                     color="primary"
                     fullWidth
-                    onClick={renderProps.onClick}
+                    component={Link}
+                    to="/login"
                     disabled={renderProps.disabled}
                     startIcon={<Icon />}
                     variant="contained"
