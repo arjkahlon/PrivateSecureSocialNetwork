@@ -84,6 +84,14 @@ const Form = ({ currentId, setCurrentId }) => {
     });
   };
 
+  const handleAddChip = (tag) => {
+    setPostData({ ...postData, tags: [...postData.tags, tag] });
+  };
+
+  const handleDeleteChip = (chipToDelete) => {
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+  };
+
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper} elevation={6}>
@@ -170,8 +178,8 @@ const Form = ({ currentId, setCurrentId }) => {
             label="Tags"
             fullWidth
             value={postData.tags}
-            onAdd={(chip) => addChip(chip)}
-            onDelete={(chip) => deleteChip(chip)}
+            onAdd={(chip) => handleAddChip(chip)}
+            onDelete={(chip) => handleDeleteChip(chip)}
           />
         </div>
         <Button

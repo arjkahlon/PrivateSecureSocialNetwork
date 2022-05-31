@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import BubbleUI from "react-bubble-ui";
 import "react-bubble-ui/dist/index.css";
-import { CircularProgress } from '@material-ui/core/';
+import { CircularProgress } from "@material-ui/core/";
 import Post from "./Post/Post";
 import "./styles.css";
 
-const Posts = ({ setCurrentId }) => {
+const Posts = ({ setCurrentId, showFollowers }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const [followers, setFollowers] = useState(user?.result?.followers);
 
   if (!posts.length && !isLoading) return "No posts";
+
+  let displayPosts;
+  if (showFollowers) {
+    const following = JSON.parse(localStorage.getItem("profile"))?.result?.following;
+    displayPosts = posts.filter((post) => following.includes(post.creator))
+  } else {
+    displayPosts = posts
+  }
 
   const options = {
     size: 375,
     minSize: 175,
     gutter: 30,
     provideProps: true,
-    numCols: 4,
+    numCols: 6,
     fringeWidth: 100,
     yRadius: 150,
     xRadius: 150,
@@ -26,7 +36,7 @@ const Posts = ({ setCurrentId }) => {
     gravitation: 0,
   };
 
-  const childPosts = posts?.map((post, i) => {
+  const childPosts = displayPosts?.map((post, i) => {
     return <Post post={post} key={i} setCurrentId={setCurrentId} />;
   });
 

@@ -1,0 +1,14 @@
+#sidebar {
+    position: absolute;
+    width: 220px;
+}
+
+#sidebar .pro-sidebar {
+    height: 95vh;
+    top: 110px;
+    right: 338px;
+}
+
+#footer {
+    position: absolute;
+}

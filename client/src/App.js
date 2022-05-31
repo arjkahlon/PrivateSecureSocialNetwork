@@ -7,6 +7,8 @@ import Home from "./components/Home/Home";
 import Home2 from "./components/Home/Home2";
 import Home3 from "./components/User/Home3";
 import SignIN from "./components/SignIn/SignIn";
+import CreatorOrTag from './components/PostDetails/OtherUsersAndTags';
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -20,6 +22,7 @@ const App = () => {
           <Route path="/Home" exact component={Home2} />
           <Route path="/User" exact component={Home3} />
           <Route path="/Homes" exact component={Home} />
+          <Route path={['/creators/:name', '/tags/:name']} component={CreatorOrTag} />
         </Switch>
       </Container>
     </BrowserRouter>

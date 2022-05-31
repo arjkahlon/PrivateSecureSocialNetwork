@@ -52,8 +52,12 @@ export default makeStyles((theme) => ({
   logout: {
     color: "rgb(0,0,0)",
     backgroundColor: "rgb(248,240,227)",
-
     fontSize: 30,
+  },
+  homeButton: {
+    color: "rgb(0,0,0)",
+    backgroundColor: "rgb(248,240,227)",
+    fontSize: 20,
   },
   userProfile: {
     backgroundColor: "rgb(248,240,227)",
@@ -71,5 +75,9 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: "95%",
+  },
+  postfilter: {
+    color: "rgb(0, 0, 0)",
+    backgroundColor: "rgba(21,32,43,0)",
   },
 }));

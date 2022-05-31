@@ -31,7 +31,7 @@ const Post = () => {
 
   useEffect(() => {
     if (post) {
-      dispatch(getPostsBySearch({ search: "none" }));
+      dispatch(getPostsBySearch({ search: "none", tags: post?.tags.join(',') }));
     }
   }, [post]);
 
@@ -70,7 +70,7 @@ const Post = () => {
     <Container maxWidth="xl">
       <Navbar />
       <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
-        <div className={classes.card}>
+        <div className={classes.card} style={{ marginTop: "8%" }}>
           <div className={classes.section}>
             <Typography variant="h3" component="h2">
               {post.title}

@@ -19,8 +19,9 @@ export const followUser = (id) => async (dispatch) => {
   try {
     console.log(id);
     const { data } = await api.follow({ id: id });
+    console.log(data)
 
-    dispatch({ type: FOLLOW, payload: data });
+    dispatch({ type: AUTH, data: {result: data, token: JSON.parse(localStorage.getItem("profile"))?.token} });
   } catch (error) {
     console.log(error);
   }
