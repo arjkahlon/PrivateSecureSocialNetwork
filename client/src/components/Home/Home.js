@@ -31,6 +31,7 @@ import { getPostsBySearch } from "../../actions/posts";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import decode from "jwt-decode";
+import { storeUser } from "../../actions/users";
 const Home = () => {
   const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -64,7 +65,7 @@ const Home = () => {
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch(storeUser(res, history));
 
       history.push("/Homes");
     } catch (error) {
@@ -140,7 +141,16 @@ const Home = () => {
             </Typography>
           </div>
           <div style={{ marginRight: "2%" }}>
-            <Button onClick={handleFollowingPage} variant="outlined" size="lg" style = {{marginLeft: 'flex', alignContent: 'center', justifyContent: 'center'}}> 
+            <Button
+              onClick={handleFollowingPage}
+              variant="outlined"
+              size="lg"
+              style={{
+                marginLeft: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
               {followingPage ? "Following" : "Home"}
             </Button>
           </div>
