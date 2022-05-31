@@ -9,13 +9,15 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <div className={classes.footer}>
-      <p>
-        This is an open source website. Build your own version of the website by
-        cloning from GitHub: &nbsp;
-        <a href="https://github.com/arjkahlon/PrivateSecureSocialNetwork">
-          <img className={classes.image} src={githubImage} alt="icon" />
-        </a>
-      </p>
+      <center>
+        <p>
+          This is an open source website. Build your own version of the website
+          by cloning from GitHub: &nbsp;
+          <a href="https://github.com/arjkahlon/PrivateSecureSocialNetwork">
+            <img className={classes.image} src={githubImage} alt="icon" />
+          </a>
+        </p>
+      </center>
     </div>
   );
 };

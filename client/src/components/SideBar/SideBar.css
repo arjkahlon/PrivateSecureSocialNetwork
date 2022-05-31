@@ -1,14 +1,17 @@
 #sidebar {
-    position: absolute;
-    width: 220px;
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  margin-left: 0;
 }
 
 #sidebar .pro-sidebar {
-    height: 95vh;
-    top: 110px;
-    right: 338px;
+  height: 100%;
+  margin-left: 0;
+  left: 0;
 }
 
 #footer {
-    position: absolute;
+  position: absolute;
+  margin-left: 0;
 }

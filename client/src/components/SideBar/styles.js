@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   postfilter: {
     color: "rgb(0, 0, 0)",
     backgroundColor: "rgb(228, 220, 207)",
-  },  
+  },
   appBar: {
     display: "flex",
     flexDirection: "row",
