@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
+import { storeUser } from "../../actions/users";
 
 //import "reactjs-popup/dist/index.css";
 
@@ -33,7 +34,7 @@ const Navbar2 = () => {
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch(storeUser(res, history));
 
       history.push("/Homes");
     } catch (error) {

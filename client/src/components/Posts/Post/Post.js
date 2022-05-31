@@ -24,7 +24,6 @@ import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
-import ReadCommentSection from "../../../components/PostDetails/ReadComments";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { getPostsByCreator, getPostsBySearch } from '../../../actions/posts';
 

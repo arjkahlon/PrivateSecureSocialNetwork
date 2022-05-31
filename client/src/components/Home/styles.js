@@ -18,4 +18,10 @@ export default makeStyles((theme) => ({
     marginTop: "7%",
     width: "100%",
   },
+  image: {
+    flexWrap: "wrap",
+    flex: 1,
+    height: 30,
+    lineHeight: "0.5%",
+  },
 }));

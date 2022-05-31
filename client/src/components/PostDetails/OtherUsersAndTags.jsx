@@ -79,7 +79,7 @@ const CreatorOrTag = () => {
           spacing={4}
           className={classes.gridContainer}
         >
-          <Grid item xs={12} sm={6} md={9}>
+          <Grid item xs={12} sm={6} md={9} style={{marginTop:"7%",}}>
             {/* if (!handleFollowingPage)
             { */}
             {/* <h1>Remove in OtherUsersAndTags</h1>
