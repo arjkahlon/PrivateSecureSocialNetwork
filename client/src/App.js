@@ -18,11 +18,12 @@ const App = () => {
           <Route path="/login" exact component={SignIN} />
           <Route path="/posts" exact component={Home} />
           <Route path="/posts/search" exact component={Home} />
-          <Route path="/posts/:id" exact component={PostDetails} />
+          {/* <Route path="/posts/:id" exact component={PostDetails} /> */}
           <Route path="/Home" exact component={Home2} />
           <Route path="/User" exact component={Home3} />
           <Route path="/Homes" exact component={Home} />
           <Route path={['/creators/:name', '/tags/:name']} component={CreatorOrTag} />
+          <Route render={() => <Redirect to={{pathname: "/Homes"}} />} />
         </Switch>
       </Container>
     </BrowserRouter>

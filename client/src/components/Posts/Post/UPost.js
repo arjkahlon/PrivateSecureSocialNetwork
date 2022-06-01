@@ -61,6 +61,12 @@ const UPost = ({ post, setCurrentId }) => {
     },
   });
 
+  const reload = () => {
+    window.location.reload();
+  }
+
+  
+
   const Likes = () => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId) ? (
@@ -190,12 +196,19 @@ const UPost = ({ post, setCurrentId }) => {
           <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
             <div className={classes.card}>
               <div className={classes.section}>
+              <div> 
+                <Link style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                    {}
                 <CardHeader
                   avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
-                  title={post.name}
-                  titleTypographyProps={{ variant: "body1", component: "span", color: "primary"}}
+                  title="You"
+                  titleTypographyProps={{ variant: "body1", component: "span", color: "primary", onClick: {reload}}}
                   className={classes.cardHeader}
-                />
+                >
+                </CardHeader>
+                </Link>
+                
+              </div>
                 <Typography color="secondary" variant="h6" align='center'>
                   {/* <b>Post Dies in: &nbsp;</b> */}
                   <b>{Math.floor(
@@ -215,6 +228,12 @@ const UPost = ({ post, setCurrentId }) => {
                 </Typography>
                 <Typography variant="h1" color="primary" component="h1" align='center'>
                   {post.title}
+                </Typography>
+                <Typography onClick= {reload} gutterBottom align='center'  variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
+                  <Link to={`/tags/${tag}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                    {` #${tag} `}
+                  </Link>
+                ))}
                 </Typography>
                 <Typography
                   gutterBottom
@@ -243,6 +262,7 @@ const UPost = ({ post, setCurrentId }) => {
                 >
                     
                 </Typography>
+                <CommentSection post={post} />
               </div>
               {/*Liking on the Bubble UI*/}
               <Button
@@ -254,12 +274,12 @@ const UPost = ({ post, setCurrentId }) => {
                 <Likes />
               </Button>
 
-              {/*Commenting on the Bubble UI*/}
+              {/* Commenting on the Bubble UI
               {(user?.result) && (
               <Button size="small" color = "primary" onClick={openPost}>
                 <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
               </Button>
-              )}
+              )} */}
 
               {/*Delete on the Bubble UI*/}
               {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
