@@ -24,7 +24,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { getPostsBySearch } from "../../actions/posts";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
-
+import { storeUser } from "../../actions/users";
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Navbar = () => {
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch(storeUser(res, history));
 
       history.push("/Homes");
     } catch (error) {

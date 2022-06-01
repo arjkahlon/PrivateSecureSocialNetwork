@@ -88,7 +88,7 @@ const SignIN = () => {
                 {" "}
                 Once signed in with your Google account you can upload images
                 and can like and comment other people's images. Images stay on
-                the website for 24 hours. Each like adds 30 minutesto the
+                the website for 24 hours. Each like adds 30 minutes to the
                 image's life and each comment adds 1 hour.
               </p>
               <p>
