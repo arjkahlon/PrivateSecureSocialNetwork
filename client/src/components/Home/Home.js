@@ -223,10 +223,17 @@ const Home = () => {
           </Toolbar>
         </AppBar>
       </React.Fragment>
-
       <h1 style={{ marginTop: "7%", color: "rgb(0,0,0)" }}>
         <center>Dashboard</center>
       </h1>
+      {!user?.result && (
+          <Typography>
+            <center>
+              <h4 >Please Sign In to Unlock Liking, Commenting, and Posting</h4>
+            </center>
+            
+          </Typography>
+      )}
 
       <Posts setCurrentId={setCurrentId} showFollowers={followingPage} />
 
