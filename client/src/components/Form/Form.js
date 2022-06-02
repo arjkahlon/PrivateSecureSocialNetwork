@@ -127,6 +127,7 @@ const Form = ({ currentId, setCurrentId }) => {
           {currentId ? `Editing "${post.title}"` : "Create a Post"}
         </Typography>
         <TextField
+          required
           name="title"
           variant="outlined"
           label="Title"
@@ -142,6 +143,7 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
         <TextField
+          required
           name="message"
           variant="outlined"
           label="Message"

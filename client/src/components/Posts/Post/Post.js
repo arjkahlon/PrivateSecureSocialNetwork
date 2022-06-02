@@ -225,6 +225,11 @@ const Post = ({ post, setCurrentId }) => {
     }
   };
 
+  const fastReload = () => {
+    window.location.reload();
+    return <></>;
+  };
+
   return (
     <Popup
       trigger={
