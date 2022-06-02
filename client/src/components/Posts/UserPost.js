@@ -8,12 +8,21 @@ import UserNavbar from "../Navbar/UserNavbar";
 
 import Navbar from "../Navbar/Navbar";
 import UPost from "./Post/UPost";
+import Post from './Post/Post';
 import "./styles.css";
 
 const UserPosts = ({ setCurrentId }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
+  const user = JSON.parse(localStorage.getItem('profile'));
 
-  if (!posts.length && !isLoading) return "No posts";
+  if (!posts.length && !isLoading) {
+    return (
+      // "No posts";
+      <div>
+        <b4>You Haven't Made Any Posts</b4>
+      </div>
+    ); 
+  }
 
   const options = {
     size: 375,
@@ -30,8 +39,8 @@ const UserPosts = ({ setCurrentId }) => {
     gravitation: 0,
   };
 
-  const childPosts = posts?.map((post, i) => {
-    return <UPost post={post} key={i} setCurrentId={setCurrentId} />;
+  const childPosts = posts?.filter((post) => post.creator == user?.result?.googleId)?.map((post, i) => {
+    return <Post post={post} key={i} setCurrentId={setCurrentId} />;
   });
 
   return isLoading ? (

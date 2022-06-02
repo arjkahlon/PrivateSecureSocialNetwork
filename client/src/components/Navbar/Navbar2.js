@@ -42,6 +42,10 @@ const Navbar2 = () => {
     }
   };
 
+  const reload = () => {
+    window.location.reload();
+  };
+
   const googleError = () =>
     alert("Google Sign In was unsuccessful. Try again later");
 
@@ -75,6 +79,7 @@ const Navbar2 = () => {
           <Typography
             component={Link}
             to="/Homes"
+            onClick= {reload}
             className={classes.heading}
             variant="h2"
             align="center"

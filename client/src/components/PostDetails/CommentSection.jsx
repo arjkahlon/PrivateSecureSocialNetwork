@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 
 import { commentPost } from "../../actions/posts";
 import useStyles from "./styles";
+import moment from 'moment';
 
-const CommentSection = ({ post }) => {
+const CommentSection = ({ post, life, setLife }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
@@ -14,14 +15,14 @@ const CommentSection = ({ post }) => {
   const commentsRef = useRef();
 
   const handleComment = async () => {
-    const newComments = await dispatch(
-      commentPost(`${user?.result?.name}: ${comment}`, post._id)
-    );
     try {
+      setComments([...comments, `${user?.result?.name}: ${comment}`]);
+      let tempComment = comment;
       setComment("");
-      setComments(newComments);
-
       commentsRef.current.scrollIntoView({ behavior: "smooth" });
+      setLife(moment(life).add(60, 'm').toDate());
+      dispatch(commentPost(`${user?.result?.name}: ${tempComment}`, post._id));
+
     } catch {}
   };
 

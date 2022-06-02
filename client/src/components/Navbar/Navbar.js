@@ -41,6 +41,7 @@ const Navbar = () => {
 
     setUser(null);
   };
+  
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
@@ -99,45 +100,52 @@ const Navbar = () => {
     <React.Fragment>
       <AppBar
         className={classes.appBar}
-        color="inherit"
+        color='inherit'
         sx={{ width: 1 }}
-        style={{ minWidth: "100%" }}
+        style={{ minWidth: '100%' }}
       >
         <div className={classes.brandContainer}>
           <img
             className={classes.image}
             src={hourglass}
-            alt="icon"
-            height="100"
+            alt='icon'
+            height='100'
           />
           <Typography
             component={Link}
-            to="/Homes"
+            to='/Homes'
             className={classes.heading}
-            variant="h2"
-            align="center"
+            variant='h2'
+            align='center'
           >
             ourGlass
           </Typography>
         </div>
-        <TextField
-          onKeyDown={handleKeyPress}
-          name="search"
-          variant="outlined"
-          label="Search Posts"
-          fullWidth
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          InputProps={{ endAdornment: <SearchButton /> }}
-        />
+
+        {user?.result ? (
+          <>
+            <TextField
+              onKeyDown={handleKeyPress}
+              name='search'
+              variant='outlined'
+              label='Search Posts'
+              fullWidth
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              InputProps={{ endAdornment: <SearchButton /> }}
+            />
+          </>
+        ) : (
+          <></>
+        )}
 
         <Toolbar className={classes.toolbar}>
           {user?.result ? (
             <div className={classes.profile}>
               <Button
-                variant="text"
+                variant='text'
                 component={Link}
-                to="/User"
+                to='/User'
                 className={classes.userProfile}
               >
                 <Avatar
@@ -150,41 +158,41 @@ const Navbar = () => {
               </Button>
               <Button
                 component={Link}
-                to="/Homes"
-                variant="text"
+                to='/Homes'
+                variant='text'
                 className={classes.logout}
               >
-                <HomeIcon fontSize="large" />
+                <HomeIcon fontSize='large' />
               </Button>
 
               <Button
                 component={Link}
-                to="/Home"
-                variant="text"
+                to='/Home'
+                variant='text'
                 className={classes.logout}
               >
-                <AddIcon fontSize="large" />
+                <AddIcon fontSize='large' />
               </Button>
             </div>
           ) : (
             <GoogleLogin
-              clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
+              clientId='201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com'
               render={(renderProps) => (
                 <Button
                   className={classes.googleButton}
-                  color="primary"
-                  fullWidth
-                  onClick={renderProps.onClick}
+                  color='primary'
+                  style={{ width: '190%' }}
+                  component={Link}
+                  to='/login'
                   disabled={renderProps.disabled}
-                  startIcon={<Icon />}
-                  variant="contained"
+                  variant='contained'
                 >
-                  Google Sign In
+                  Sign In
                 </Button>
               )}
               onSuccess={googleSuccess}
               onFailure={googleError}
-              cookiePolicy="single_host_origin"
+              cookiePolicy='single_host_origin'
             />
           )}
         </Toolbar>

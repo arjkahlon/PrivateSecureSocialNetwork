@@ -22,7 +22,6 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
-import PostDetails from "../../PostDetails/PostDetails";
 import CommentSection from "../../PostDetails/CommentSection";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { getPostsByCreator, getPostsBySearch } from '../../../actions/posts';
@@ -40,17 +39,20 @@ const cardStyle = {
   height: "45vw",
 };
 
-const Post = ({ post, setCurrentId }) => {
+const Post = ({ post, setCurrentId, following, setFollowing }) => {
 
   const { name } = useParams();
   const { posts, isLoading } = useSelector((state) => state.posts);
 
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const [following, setFollowing] = useState(user?.result?.following);
+
+
+  const [life, setLife] = useState(post.createdAt)
+  
   
   const calculateTimeLeft = () => {
-    let difference = 86400000 + moment(post.createdAt) - new Date();
+    let difference = 86400000 + moment(life) - new Date();
     let timeLeft = {};
     if (difference > 0) {
       timeLeft = {
@@ -76,17 +78,18 @@ const Post = ({ post, setCurrentId }) => {
   const history = useHistory();
   const classes = useStyles();
 
-  const userId = user?.result.googleId || user?.result?._id;
-  const hasLikedPost = post.likes.find((like) => like === userId);
+  const userId = user?.result.googleId;
 
   const handleLike = async () => {
-    dispatch(likePost(post._id));
-
-    if (hasLikedPost) {
-      setLikes(post.likes.filter((id) => id !== userId));
+    if (likes.find((like) => like === userId)) {
+      setLikes(likes.filter((id) => id !== userId));
+      setLife(moment(life).subtract(30, 'm').toDate())
+      
     } else {
-      setLikes([...post.likes, userId]);
+      setLikes([...likes, userId]);
+      setLife(moment(life).add(30, 'm').toDate());
     }
+    dispatch(likePost(post._id));
   };
 
   const styles = StyleSheet.create({
@@ -214,6 +217,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const Follows = () => {
+    console.log(following)
     if (following) {
       return following.find((follower) => follower === post.creator) ? (
         <>Following</>
@@ -225,57 +229,60 @@ const Post = ({ post, setCurrentId }) => {
     }
   };
 
+  const fastReload = () => {
+    window.location.reload();
+    return <></>;
+  };
+
   return (
     <Popup
       trigger={
-        <figure style={{ color: "rgb(0,0,0)" }}>
-          <figcaption align="center">
-            {" "}
+        <figure style={{ color: 'rgb(0,0,0)' }}>
+          <figcaption align='center'>
+            {' '}
             <h1>
               <b>
                 {Math.floor(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    3600000
+                  (86400000 + moment(life) - new Date().getTime()) / 3600000
                 )}
                 :
                 {Math.floor(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    60000
+                  (86400000 + moment(life) - new Date().getTime()) / 60000
                 ) % 60}
                 :
                 {Math.floor(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    1000
-                ) % 60}{" "}
-              </b>{" "}
+                  (86400000 + moment(life) - new Date().getTime()) / 1000
+                ) % 60}{' '}
+              </b>{' '}
             </h1>
           </figcaption>
-          <Button className="post">
-            <div class="container">
+          <Button className='post'>
+            <div class='container'>
               <Image
                 style={borderStyle(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    3600000
+                  (86400000 + moment(life) - new Date().getTime()) / 3600000
                 )}
                 source={
                   post.selectedFile ||
-                  "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+                  'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'
                 }
               />
               {/*Liking on the Bubble UI*/}
-              {user?.result && (<Button
-                size="small"
-                color="primary"
-                disabled={!user?.result}
-                onClick={handleLike}
-              >
-                <Likes />
-              </Button>)}
+              {user?.result && (
+                <Button
+                  size='small'
+                  color='primary'
+                  disabled={!user?.result}
+                  onClick={handleLike}
+                >
+                  <Likes />
+                </Button>
+              )}
 
               {/*Commenting on the Bubble UI*/}
               {user?.result && (
-                <Button size="small" color="primary">
-                  <CommentIcon fontSize="small" /> &nbsp; Comment &nbsp; &nbsp;
+                <Button size='small' color='primary'>
+                  <CommentIcon fontSize='small' /> &nbsp; Comment &nbsp; &nbsp;
                 </Button>
               )}
 
@@ -283,103 +290,118 @@ const Post = ({ post, setCurrentId }) => {
               {(user?.result?.googleId === post?.creator ||
                 user?.result?._id === post?.creator) && (
                 <Button
-                  size="small"
-                  color="secondary"
+                  size='small'
+                  color='secondary'
                   onClick={() => dispatch(deletePost(post._id))}
                 >
-                  <DeleteIcon fontSize="small" /> &nbsp; Delete
+                  <DeleteIcon fontSize='small' /> &nbsp; Delete
                 </Button>
               )}
             </div>
           </Button>
         </figure>
       }
-      position="right"
+      position='right'
       Modal
       className={classes.popup}
     >
       <Paper
         style={{
-          padding: "20px",
-          borderRadius: "15px",
-          marginRight: "10%",
+          padding: '20px',
+          borderRadius: '15px',
+          marginRight: '10%',
           marginTop: 400,
         }}
         elevation={6}
       >
         <div className={classes.card}>
           <div className={classes.section}>
-            <div> 
-            <Link to={`/creators/${post.name}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
+            <div>
+              <Link
+                to={`/creators/${post.name}`}
+                style={{ textDecoration: 'none', color: '#3f51b5' }}
+              >
                 {}
-            <CardHeader
-              avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
-              title={post.name}
-              titleTypographyProps={{ variant: "body1", component: "span", color: "primary", onClick: {reload}}}
-              className={classes.cardHeader}
-            >
-            </CardHeader>
-            </Link>
-            
+                <CardHeader
+                  avatar={<Avatar alt={post.name} src={AccountCircleIcon} />}
+                  title={post.name}
+                  titleTypographyProps={{
+                    variant: 'body1',
+                    component: 'span',
+                    color: 'primary',
+                    onClick: { reload },
+                  }}
+                  className={classes.cardHeader}
+                ></CardHeader>
+              </Link>
             </div>
-            {user?.result && (
-            <Button
-              style={{ marginTop: "10px" }}
-              color="primary"
-              variant="contained"
-              onClick={handleFollow}
-            >
-              <Follows />
-            </Button>)}
-            <Typography color="secondary" variant="h6" align="center">
+            {user?.result && user?.result?.googleId != post.creator && (
+              <Button
+                style={{ marginTop: '10px' }}
+                color='primary'
+                variant='contained'
+                onClick={handleFollow}
+              >
+                <Follows />
+              </Button>
+            )}
+            <Typography color='secondary' variant='h6' align='center'>
               {/* <b>Post Dies in: &nbsp;</b> */}
               <b>
                 {Math.floor(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    3600000
+                  (86400000 + moment(life) - new Date().getTime()) / 3600000
                 )}
                 :
                 {Math.floor(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    60000
+                  (86400000 + moment(life) - new Date().getTime()) / 60000
                 ) % 60}
                 :
                 {Math.floor(
-                  (86400000 + moment(post.createdAt) - new Date().getTime()) /
-                    1000
-                ) % 60}{" "}
+                  (86400000 + moment(life) - new Date().getTime()) / 1000
+                ) % 60}{' '}
               </b>
             </Typography>
             <Typography
-              variant="h1"
-              color="primary"
-              component="h1"
-              align="center"
+              variant='h1'
+              color='primary'
+              component='h1'
+              align='center'
             >
               {post.title}
             </Typography>
-            <Typography onClick= {reload} gutterBottom align='center'  variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
-              <Link to={`/tags/${tag}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
-                {` #${tag} `}
-              </Link>
-            ))}
+            <Typography
+              onClick={reload}
+              gutterBottom
+              align='center'
+              variant='h6'
+              color='textSecondary'
+              component='h2'
+            >
+              {post.tags.map((tag) => (
+                <Link
+                  to={`/tags/${tag}`}
+                  style={{ textDecoration: 'none', color: '#3f51b5' }}
+                >
+                  {` #${tag} `}
+                </Link>
+              ))}
             </Typography>
             <Typography
               gutterBottom
-              variant="body1"
-              color="primary"
-              component="p"
-              align="center"
+              variant='body1'
+              color='primary'
+              component='p'
+              align='center'
             >
               {post.message}
             </Typography>
 
-            <CommentSection post={post} />
+            <CommentSection post={post} life={life} setLife={setLife} />
           </div>
           {/*Liking on the Bubble UI*/}
           <Button
-            size="small"
-            color="primary"
+            size='small'
+            color='primary'
             disabled={!user?.result}
             onClick={handleLike}
           >
@@ -397,11 +419,11 @@ const Post = ({ post, setCurrentId }) => {
           {(user?.result?.googleId === post?.creator ||
             user?.result?._id === post?.creator) && (
             <Button
-              size="small"
-              color="secondary"
+              size='small'
+              color='secondary'
               onClick={() => dispatch(deletePost(post._id))}
             >
-              <DeleteIcon fontSize="small" /> &nbsp; Delete
+              <DeleteIcon fontSize='small' /> &nbsp; Delete
             </Button>
           )}
         </div>
