@@ -59,6 +59,10 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
+  const reload = () => {
+    window.location.reload();
+  };
+
   return (
     <React.Fragment>
       <AppBar
@@ -81,7 +85,7 @@ const Navbar = () => {
             variant="h2"
             align="center"
           >
-            HourGlass
+            ourGlass
           </Typography>
 
           <Typography variant="h2" align="center" className={classes.userName}>

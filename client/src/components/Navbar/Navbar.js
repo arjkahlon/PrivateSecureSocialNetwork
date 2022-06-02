@@ -41,6 +41,7 @@ const Navbar = () => {
 
     setUser(null);
   };
+  
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;

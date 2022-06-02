@@ -13,7 +13,14 @@ import "./styles.css";
 const UserPosts = ({ setCurrentId }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
 
-  if (!posts.length && !isLoading) return "No posts";
+  if (!posts.length && !isLoading) {
+    return (
+      // "No posts";
+      <div>
+        <b4>You Haven't Made Any Posts</b4>
+      </div>
+    ); 
+  }
 
   const options = {
     size: 375,

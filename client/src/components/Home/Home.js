@@ -131,8 +131,7 @@ const Home = () => {
             />
 
             <Typography
-              component={Link}
-              to="/Homes"
+              onClick={reload}
               className={classes.heading}
               variant="h2"
               align="center"
@@ -184,8 +183,7 @@ const Home = () => {
                   </Avatar>
                 </Button>
                 <Button
-                  component={Link}
-                  to="/Homes"
+                  onClick={reload}
                   variant="text"
                   className={classes.logout}
                 >
