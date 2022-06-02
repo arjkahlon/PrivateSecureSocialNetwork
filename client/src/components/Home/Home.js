@@ -140,30 +140,36 @@ const Home = () => {
               ourGlass
             </Typography>
           </div>
-          <div style={{ marginRight: "2%" }}>
-            <Button
-              onClick={handleFollowingPage}
-              variant="outlined"
-              size="lg"
-              style={{
-                marginLeft: "flex",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-            >
-              {followingPage ? "Following" : "Home"}
-            </Button>
-          </div>
-          <TextField
-            onKeyDown={handleKeyPress}
-            name="search"
-            variant="outlined"
-            label="Search Posts"
-            fullWidth
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            InputProps={{ endAdornment: <SearchButton /> }}
-          />
+          {user?.result ? (
+            <>
+              <div style={{ marginRight: "2%" }}>
+                <Button
+                  onClick={handleFollowingPage}
+                  variant="outlined"
+                  size="lg"
+                  style={{
+                    marginLeft: "flex",
+                    alignContent: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {followingPage ? "Following" : "Home"}
+                </Button>
+              </div>
+              <TextField
+                onKeyDown={handleKeyPress}
+                name="search"
+                variant="outlined"
+                label="Search Posts"
+                fullWidth
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                InputProps={{ endAdornment: <SearchButton /> }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
 
           <Toolbar className={classes.toolbar}>
             {user?.result ? (
@@ -207,7 +213,7 @@ const Home = () => {
                   <Button
                     className={classes.googleButton}
                     color="primary"
-                    style={{width:"190%"}}
+                    style={{ width: "190%" }}
                     component={Link}
                     to="/login"
                     disabled={renderProps.disabled}
