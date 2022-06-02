@@ -118,48 +118,48 @@ const Home = () => {
       <React.Fragment>
         <AppBar
           className={classes.appBar}
-          color="inherit"
+          color='inherit'
           sx={{ width: 1 }}
-          style={{ minWidth: "100%" }}
+          style={{ minWidth: '100%' }}
         >
           <div className={classes.brandContainer}>
             <img
               className={classes.image}
               src={hourglass}
-              alt="icon"
-              height="100"
+              alt='icon'
+              height='100'
             />
 
             <Typography
               onClick={reload}
               className={classes.heading}
-              variant="h2"
-              align="center"
+              variant='h2'
+              align='center'
             >
               ourGlass
             </Typography>
           </div>
           {user?.result ? (
             <>
-              <div style={{ marginRight: "2%" }}>
+              <div style={{ marginRight: '2%' }}>
                 <Button
                   onClick={handleFollowingPage}
-                  variant="outlined"
-                  size="lg"
+                  variant='outlined'
+                  size='lg'
                   style={{
-                    marginLeft: "flex",
-                    alignContent: "center",
-                    justifyContent: "center",
+                    marginLeft: 'flex',
+                    alignContent: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  {followingPage ? "Following" : "Home"}
+                  {followingPage ? 'Following' : 'Home'}
                 </Button>
               </div>
               <TextField
                 onKeyDown={handleKeyPress}
-                name="search"
-                variant="outlined"
-                label="Search Posts"
+                name='search'
+                variant='outlined'
+                label='Search Posts'
                 fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -174,9 +174,9 @@ const Home = () => {
             {user?.result ? (
               <div className={classes.profile}>
                 <Button
-                  variant="text"
+                  variant='text'
                   component={Link}
-                  to="/User"
+                  to='/User'
                   className={classes.userProfile}
                 >
                   <Avatar
@@ -188,56 +188,67 @@ const Home = () => {
                   </Avatar>
                 </Button>
                 <Button
-                  onClick={reload}
-                  variant="text"
+                  component={Link}
+                  to='/Homes'
+                  variant='text'
                   className={classes.logout}
                 >
-                  <HomeIcon fontSize="large" />
+                  <HomeIcon fontSize='large' />
                 </Button>
 
                 <Button
                   component={Link}
-                  to="/Home"
-                  variant="text"
+                  to='/Home'
+                  variant='text'
                   className={classes.logout}
                 >
-                  <AddIcon fontSize="large" />
+                  <AddIcon fontSize='large' />
                 </Button>
               </div>
             ) : (
-              <GoogleLogin
-                clientId="201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com"
-                render={(renderProps) => (
-                  <Button
-                    className={classes.googleButton}
-                    color="primary"
-                    style={{ width: "190%" }}
-                    component={Link}
-                    to="/login"
-                    disabled={renderProps.disabled}
-                    variant="contained"
-                  >
-                    Sign In
-                  </Button>
-                )}
-                onSuccess={googleSuccess}
-                onFailure={googleError}
-                cookiePolicy="single_host_origin"
-              />
+              <>
+                <Button
+                  component={Link}
+                  to='/Homes'
+                  variant='text'
+                  className={classes.logout}
+                  style={{ marginRight: '2%' }}
+                >
+                  <HomeIcon fontSize='large' />
+                </Button>
+                <GoogleLogin
+                  clientId='201954831376-02jtel3qqftcjpa2gdomp17a0eo30crj.apps.googleusercontent.com'
+                  render={(renderProps) => (
+                    <Button
+                      className={classes.googleButton}
+                      color='primary'
+                      style={{ width: '190%' }}
+                      component={Link}
+                      to='/login'
+                      disabled={renderProps.disabled}
+                      variant='contained'
+                    >
+                      Sign In
+                    </Button>
+                  )}
+                  onSuccess={googleSuccess}
+                  onFailure={googleError}
+                  cookiePolicy='single_host_origin'
+                />
+              </>
             )}
           </Toolbar>
         </AppBar>
       </React.Fragment>
-      <h1 style={{ marginTop: "7%", color: "rgb(0,0,0)" }}>
+      <h1 style={{ marginTop: '7%', color: 'rgb(0,0,0)' }}>
         <center>Dashboard</center>
       </h1>
       {!user?.result && (
-          <Typography>
-            <center>
-              <h4 >Please Sign In to Unlock Liking, Commenting, and Posting</h4>
-            </center>
-            
-          </Typography>
+        <Typography>
+          <center>
+            <h4>Please Sign In to Unlock Liking, Commenting, and Posting</h4>
+          </center>
+        </Typography>
       )}
 
       <Posts setCurrentId={setCurrentId} showFollowers={followingPage} />

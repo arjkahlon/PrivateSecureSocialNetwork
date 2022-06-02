@@ -97,12 +97,6 @@ const Navbar = () => {
         <Toolbar className={classes.toolbar}>
           {user?.result ? (
             <div className={classes.profile}>
-              <Button
-                variant="text"
-                component={Link}
-                to="/User"
-                className={classes.userProfile}
-              ></Button>
 
               <Button
                 component={Link}

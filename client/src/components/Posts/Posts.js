@@ -5,21 +5,28 @@ import "react-bubble-ui/dist/index.css";
 import { CircularProgress } from "@material-ui/core/";
 import Post from "./Post/Post";
 import "./styles.css";
+import { relativeTimeRounding } from "moment";
 
 const Posts = ({ setCurrentId, showFollowers }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
   const user = JSON.parse(localStorage.getItem('profile'));
-  const [followers, setFollowers] = useState(user?.result?.followers);
+  const [following, setFollowing] = useState(user?.result?.following);
+
+
+
+  if (!following && user?.result) {
+    window.location.reload();
+  }
 
   if (!posts.length && !isLoading) return "No posts";
 
   let displayPosts;
   if (showFollowers) {
-    const following = JSON.parse(localStorage.getItem("profile"))?.result?.following;
     displayPosts = posts.filter((post) => following.includes(post.creator))
   } else {
     displayPosts = posts
   }
+  console.log(displayPosts)
 
   const options = {
     size: 375,
@@ -37,14 +44,22 @@ const Posts = ({ setCurrentId, showFollowers }) => {
   };
 
   const childPosts = displayPosts?.map((post, i) => {
-    return <Post post={post} key={i} setCurrentId={setCurrentId} />;
+    return <Post post={post} key={i} setCurrentId={setCurrentId} following={following} setFollowing={setFollowing} />;
   });
 
   return isLoading ? (
-    <CircularProgress size="7em" />
+    <CircularProgress size='7em' />
   ) : (
-    <BubbleUI className={"myBubbleUI"} options={options}>
-      {childPosts}
+    <BubbleUI className={'myBubbleUI'} options={options}>
+      {displayPosts?.map((post) => {
+        return (
+          <Post
+            post={post}
+            following={following}
+            setFollowing={setFollowing}
+          />
+        );
+      })}
     </BubbleUI>
   );
 };
