@@ -145,6 +145,7 @@ const Home = () => {
               onClick={handleFollowingPage}
               variant="outlined"
               size="lg"
+              disabled={!user?.result}
               style={{
                 marginLeft: "flex",
                 alignContent: "center",
